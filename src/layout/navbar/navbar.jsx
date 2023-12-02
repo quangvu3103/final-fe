@@ -62,7 +62,7 @@ const Navbar = () => {
       <div className="w-full block lg:flex lg:items-center lg:w-auto pr-10">
         <div className="text-sm flex ">
           <a
-            href="Home"
+            href="/"
             className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
           >
             Home

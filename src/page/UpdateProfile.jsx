@@ -1,12 +1,64 @@
-import { Avatar, Box, TextField } from '@mui/material'
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import { Avatar, Box, Button, TextField } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../layout/navbar/navbar'
 import Footer from '../layout/footer/Footer'
+import { getProfile, updateProfile } from '../redux/profile/profileThunk'
 
 const UpdateProfile = () => {
   const dispatch = useDispatch()
 
+  const error = useSelector((state) => state.profile.error)
+
+  const [profile, setProfile] = useState({
+    fullName: '',
+    phoneNumber: '',
+    address: '',
+    description: '',
+    phone: '',
+  })
+
+  const handleUpdateProfile = () => {
+    dispatch(updateProfile(profile))
+  }
+
+  useEffect(() => {
+    dispatch(getProfile())
+      .unwrap()
+      .then((res) => {
+        setProfile({
+          fullName: res.fullName,
+          phoneNumber: res.phoneNumber,
+          address: res.address,
+          description: res.description,
+          phone: res.phone,
+        })
+      })
+  }, [])
+
+  const handleDescription = (e) => {
+    setProfile((preV) => {
+      return { ...preV, description: e.target.value }
+    })
+  }
+
+  const handleAddress = (e) => {
+    setProfile((preV) => {
+      return { ...preV, address: e.target.value }
+    })
+  }
+
+  const handlePhone = (e) => {
+    setProfile((preV) => {
+      return { ...preV, phone: e.target.value }
+    })
+  }
+
+  const handleFullName = (e) => {
+    setProfile((preV) => {
+      return { ...preV, fullName: e.target.value }
+    })
+  }
   return (
     <>
       <div className="">
@@ -34,7 +86,8 @@ const UpdateProfile = () => {
                 id="outlined-basic"
                 label="Full Name"
                 variant="outlined"
-                value="Jenna Stones"
+                value={profile.fullName}
+                onChange={handleFullName}
               />
 
               <Box className="text-center mt-12">
@@ -43,7 +96,8 @@ const UpdateProfile = () => {
                   id="outlined-basic"
                   label="Address"
                   variant="outlined"
-                  value="Jenna Stones"
+                  value={profile.address}
+                  onChange={handleAddress}
                 />
               </Box>
               <Box className="text-center mt-12">
@@ -52,7 +106,8 @@ const UpdateProfile = () => {
                   id="outlined-basic"
                   label="Phone"
                   variant="outlined"
-                  value="0985959912"
+                  value={profile.phoneNumber}
+                  onChange={handlePhone}
                 />
               </Box>
               <Box className="mb-2 text-blueGray-600 mt-10">
@@ -69,18 +124,18 @@ const UpdateProfile = () => {
                 <TextField
                   fullWidth
                   id="standard-multiline-static"
-                  label="Multiline"
+                  label="Description"
                   multiline
                   rows={4}
-                  defaultValue="An artist of considerable range, Jenna the name taken by
-                  Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                  performs and records all of his own music, giving it a warm,
-                  intimate feel with a solid groove structure. An artist of
-                  considerable range."
+                  defaultValue={profile.description}
+                  onChange={handleDescription}
                   variant="standard"
                 />
               </Box>
             </Box>
+            <Button variant="contained" onClick={handleUpdateProfile}>
+              Update Profile
+            </Button>
           </Box>
         </Box>
       </Box>

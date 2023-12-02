@@ -62,6 +62,7 @@ const authSlice = createSlice({
       })
       .addCase(resetPassword.fulfilled, (state, action) => {
         state.loading = false
+        state.message = 'Please check your email'
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false

@@ -29,7 +29,7 @@ export const resetPassword = createAsyncThunk(
   'auth/resetPassword',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await http.post('/auth/resetPassword', data)
+      const response = await http.post('/auth/reset', data)
       return response
     } catch (error) {
       return rejectWithValue(error)

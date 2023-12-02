@@ -136,7 +136,7 @@ const Checkout = () => {
               <PayPalScriptProvider
                 options={{
                   clientId:
-                    'AeQMw89L51bliYPAQrRK19jWw_MEcS6VozON1cwxcYZqecmznj3ZIJ61WM9Rubh4aj0LjttEf4DXy3tc',
+                    'Acuo51TWP1rfSLB8f0Up2EIaALz_vfA-goF1kN8a7cCzw9xh0Mzkk5bowSYHxHNRwOxsrxonesszNhcc',
                 }}
               >
                 <PayPalButtons
