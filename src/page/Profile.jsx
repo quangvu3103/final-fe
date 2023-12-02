@@ -5,6 +5,8 @@ import Navbar from '../layout/navbar/navbar'
 import Footer from '../layout/footer/Footer'
 import { Link } from 'react-router-dom'
 import { getProfile } from '../redux/profile/profileThunk'
+import { openChangePassword } from '../redux/common/commonSlice'
+import ChangePassword from '../component/ChangePassword'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -14,12 +16,16 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getProfile())
   }, [])
+  const handleOpenChangePassword = (e) => {
+    dispatch(openChangePassword())
+  }
 
   return (
     <>
       <div className="">
         <Navbar />
       </div>
+      <ChangePassword />
       <Box className="w-full lg:w-4/12 px-4 mx-auto">
         <Box className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
           <Box className="px-6">
@@ -58,7 +64,10 @@ const Profile = () => {
               </Box>
               <Link to={`/updateProfile`} style={{ textDecoration: 'none' }}>
                 <Button>Update Profile</Button>
-              </Link>
+              </Link>{' '}
+              <Button onClick={handleOpenChangePassword}>
+                Change Password
+              </Button>
             </Box>
             <Box className="text-center mt-12">
               <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">

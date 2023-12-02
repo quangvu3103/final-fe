@@ -3,7 +3,7 @@ import { BsCartFill } from 'react-icons/bs'
 import myImage from '../../img/logonav1.png'
 import { FaSearch } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { openLogin } from '../../redux/common/commonThunk'
+import { openLogin } from '../../redux/common/commonSlice'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {

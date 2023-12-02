@@ -47,7 +47,6 @@ const Home = () => {
       <Login />
       <Register />
       <ForgotPassword />
-
       <div className=" ">
         <div className="w-[100%] m-auto  ">
           {/* <img src={image}

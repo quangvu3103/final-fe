@@ -36,3 +36,15 @@ export const resetPassword = createAsyncThunk(
     }
   },
 )
+
+export const changePassword = createAsyncThunk(
+  'auth/changePassword',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await http.patch('/user/changePassword', data)
+      return response
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)

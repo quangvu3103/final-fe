@@ -1,5 +1,3 @@
-import { closeLogin, openLogin, openRegister, closeRegister, openChangePassword, closeChangePassword, openResetPassword, closeResetPassword  } from './commonThunk'
-
 const { createSlice } = require('@reduxjs/toolkit')
 
 const initialState = {
@@ -7,45 +5,55 @@ const initialState = {
   register: false,
   changePassword: false,
   resetPassword: false,
+  notifi: { open: false, message: '' },
+  changePassword: false,
 }
 
 const commonSlice = createSlice({
   name: 'common',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(openLogin.fulfilled, (state, action) => {
-        state.login = true
-      })
-
-      .addCase(closeLogin.fulfilled, (state, action) => {
-        state.login = false
-      })
-
-      .addCase(openRegister.fulfilled, (state, action) => {
-        state.register = true
-      })
-
-      .addCase(closeRegister.fulfilled, (state, action) => {
-        state.register = false
-      })
-      .addCase(openChangePassword.fulfilled, (state, action) => {
-        state.changePassword = true
-      })
-
-      .addCase(closeChangePassword.fulfilled, (state, action) => {
-        state.changePassword = false
-      })
-
-      .addCase(openResetPassword.fulfilled, (state, action) => {
-        state.resetPassword = true
-      })
-
-      .addCase(closeResetPassword.fulfilled, (state, action) => {
-        state.resetPassword = false
-      })
+  reducers: {
+    openNotification: (state, action) => {
+      console.log(action.payload)
+      state.notifi.open = true
+      state.notifi.message = action.payload
+    },
+    openChangePassword: (state, action) => {
+      state.changePassword = true
+    },
+    closeChangePassword: (state, action) => {
+      state.changePassword = false
+    },
+    openLogin: (state, action) => {
+      state.login = true
+    },
+    closeLogin: (state, action) => {
+      state.login = false
+    },
+    openRegister: (state, action) => {
+      state.register = true
+    },
+    closeRegister: (state, action) => {
+      state.register = false
+    },
+    openResetPassword: (state, action) => {
+      state.resetPassword = true
+    },
+    closeResetPassword: (state, action) => {
+      state.resetPassword = false
+    },
   },
+  extraReducers: (builder) => {},
 })
-
+export const {
+  openNotification,
+  openLogin,
+  closeLogin,
+  openRegister,
+  closeRegister,
+  openChangePassword,
+  closeChangePassword,
+  openResetPassword,
+  closeResetPassword,
+} = commonSlice.actions
 export default commonSlice.reducer

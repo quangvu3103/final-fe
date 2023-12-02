@@ -1,4 +1,4 @@
-import { login, register, resetPassword } from './authThunk'
+import { changePassword, login, register, resetPassword } from './authThunk'
 import DecodeTokenAndCheck from '../../service/DecodeTokenAndCheck'
 import { jwtDecode } from 'jwt-decode'
 import { closeLogin } from '../common/commonThunk'
@@ -65,6 +65,18 @@ const authSlice = createSlice({
         state.message = 'Please check your email'
       })
       .addCase(resetPassword.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(changePassword.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.loading = false
+        state.error = []
+        state.message = 'Change password successfully'
+      })
+      .addCase(changePassword.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

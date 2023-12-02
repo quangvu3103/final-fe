@@ -3,7 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../layout/navbar/navbar'
 import Footer from '../layout/footer/Footer'
-import { getProfile, updateProfile } from '../redux/profile/profileThunk'
+import {
+  getProfile,
+  updateAvatar,
+  updateProfile,
+} from '../redux/profile/profileThunk'
 
 const UpdateProfile = () => {
   const dispatch = useDispatch()
@@ -16,6 +20,7 @@ const UpdateProfile = () => {
     address: '',
     description: '',
     phone: '',
+    url: '',
   })
 
   const handleUpdateProfile = () => {
@@ -32,6 +37,7 @@ const UpdateProfile = () => {
           address: res.address,
           description: res.description,
           phone: res.phone,
+          url: res.url,
         })
       })
   }, [])
@@ -59,6 +65,30 @@ const UpdateProfile = () => {
       return { ...preV, fullName: e.target.value }
     })
   }
+
+  const handleUploadAvatar = (event) => {
+    const file = event.target.files[0]
+    const data = new FormData()
+    data.append('file', file)
+
+    if (file) {
+      dispatch(updateAvatar(data))
+        .unwrap()
+        .then((res) => {
+          setProfile({
+            ...profile,
+            url: res,
+          })
+        })
+    }
+  }
+
+  useEffect(() => {
+    if (profile.url) {
+      dispatch(updateProfile(profile))
+    }
+  }, [profile.url])
+
   return (
     <>
       <div className="">
@@ -73,9 +103,31 @@ const UpdateProfile = () => {
                   <Avatar
                     sx={{ width: 200, height: 200 }}
                     alt="Remy Sharp"
-                    src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                    src={profile.url}
                     className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                   />
+                  <Box>
+                    <label
+                      htmlFor="customFile"
+                      style={{
+                        cursor: 'pointer',
+                        backgroundColor: '#1976d2',
+                        color: 'white',
+                        padding: '6px 16px',
+                        borderRadius: '4px',
+                      }}
+                    >
+                      +++++++\\+++
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="customFile"
+                      style={{ display: 'none' }}
+                      onChange={handleUploadAvatar}
+                      name="video"
+                    />
+                  </Box>
                 </Box>
               </Box>
               <Box className="w-full px-4 text-center mt-20"></Box>

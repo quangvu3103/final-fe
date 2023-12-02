@@ -17,7 +17,7 @@ import {
   closeResetPassword,
   openLogin,
   openRegister,
-} from '../redux/common/commonThunk'
+} from '../redux/common/commonSlice'
 import { resetPassword } from '../redux/auth/authThunk'
 
 const ForgotPassword = () => {

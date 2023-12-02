@@ -36,3 +36,15 @@ export const updateProfile = createAsyncThunk(
     }
   },
 )
+
+export const updateAvatar = createAsyncThunk(
+  'profile/updateAvatar',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await http.post('/file/file-upload', data)
+      return response
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)

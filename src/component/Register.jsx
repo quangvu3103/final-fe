@@ -18,7 +18,7 @@ import {
   closeRegister,
   openLogin,
   openResetPassword,
-} from '../redux/common/commonThunk'
+} from '../redux/common/commonSlice'
 import { register } from '../redux/auth/authThunk'
 
 export function Register() {

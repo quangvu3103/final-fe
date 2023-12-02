@@ -4,7 +4,7 @@ import {
   closeLogin,
   openRegister,
   openResetPassword,
-} from '../redux/common/commonThunk'
+} from '../redux/common/commonSlice'
 import {
   Button,
   Dialog,
