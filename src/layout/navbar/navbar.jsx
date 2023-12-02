@@ -4,12 +4,19 @@ import myImage from '../../img/logonav1.png'
 import { FaSearch } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { openLogin } from '../../redux/common/commonThunk'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   const dispatch = useDispatch()
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
 
   const handleOpenLogin = () => {
     dispatch(openLogin())
+  }
+
+  const handleOpenLogout = () => {
+    localStorage.removeItem('token')
+    window.location.href = '/'
   }
 
   return (
@@ -81,22 +88,37 @@ const Navbar = () => {
 
           <div className="flex text-lg  lg:mt-0 text-teal-500 ">
             <BsCartFill size={25} />
-            <a
-              href="#responsive-header"
-              className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
-            >
+            <Link to={`/cart`} style={{ textDecoration: 'none' }}>
               Cart
-            </a>
+            </Link>
           </div>
 
           <div className="flex  text-lg  lg:mt-0 text-teal-500 ">
             <MdAccountBox size={30} />
-            <button
-              onClick={handleOpenLogin}
-              className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
-            >
-              Account
-            </button>
+            {isLoggedIn ? (
+              <>
+                <Link to={`/profile`} style={{ textDecoration: 'none' }}>
+                  <button className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2">
+                    Profiles
+                  </button>
+                </Link>
+                <button
+                  onClick={handleOpenLogout}
+                  className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={handleOpenLogin}
+                  className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
+                >
+                  Login
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

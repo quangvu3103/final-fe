@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllCategory } from '../redux/category/categoryThunk'
 import { getProductByCategoryId } from '../redux/product/productThunk'
 import LogosDisplay from '../layout/logo/Logo'
-import image from '../img/anh1.jpg'
 import { Login } from '../component/Login'
 import { Register } from '../component/Register'
+import ForgotPassword from '../component/ForgotPassword'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -45,7 +45,8 @@ const Home = () => {
     <>
       <Navbar />
       <Login />
-      <Register/>
+      <Register />
+      <ForgotPassword />
 
       <div className=" ">
         <div className="w-[100%] m-auto  ">

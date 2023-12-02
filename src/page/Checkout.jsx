@@ -1,9 +1,9 @@
 import React from 'react'
 import Navbar from '../layout/navbar/navbar'
 import Footer from '../layout/footer/Footer'
-import { Link } from 'react-router-dom'
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 
-const Cart = () => {
+const Checkout = () => {
   return (
     <>
       <div className="">
@@ -11,7 +11,7 @@ const Cart = () => {
       </div>
       <body>
         <div class="h-screen bg-gray-100 pt-20">
-          <h1 class="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+          <h1 class="mb-10 text-center text-2xl font-bold">Checkout Page</h1>
           <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
             <div class="rounded-lg md:w-2/3">
               <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
@@ -132,11 +132,18 @@ const Cart = () => {
                   <p class="text-sm text-gray-700">including VAT</p>
                 </div>
               </div>
-              <Link to={`/checkout`} style={{ textDecoration: 'none' }}>
-                <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
-                  Check out
-                </button>
-              </Link>
+
+              <PayPalScriptProvider
+                options={{
+                  clientId:
+                    'AeQMw89L51bliYPAQrRK19jWw_MEcS6VozON1cwxcYZqecmznj3ZIJ61WM9Rubh4aj0LjttEf4DXy3tc',
+                }}
+              >
+                <PayPalButtons
+                //   createOrder={handleCreateOrder}
+                //   onApprove={handleOnApprove}
+                />
+              </PayPalScriptProvider>
             </div>
           </div>
         </div>
@@ -146,4 +153,4 @@ const Cart = () => {
   )
 }
 
-export default Cart
+export default Checkout

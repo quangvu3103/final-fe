@@ -1,22 +1,56 @@
-import React from 'react'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  closeLogin,
+  openRegister,
+  openResetPassword,
+} from '../redux/common/commonThunk'
 import {
   Button,
   Dialog,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Input,
-  Checkbox,
-} from '@material-tailwind/react'
-import { useDispatch, useSelector } from 'react-redux'
-import { closeLogin, openRegister } from '../redux/common/commonThunk'
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Box,
+  List,
+  FormHelperText,
+  LinearProgress,
+} from '@mui/material'
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
+import { login } from '../redux/auth/authThunk'
+import { useState } from 'react'
 
 export function Login() {
   const dispatch = useDispatch()
+  const [account, setAccount] = useState({
+    email: '',
+    password: '',
+  })
 
-  const login = useSelector((state) => state.common.login)
+  // const handleSuccessLogin = (response) => {
+  //   const token = response.credential
+  //   const { isValid, error } = decodeTokenAndCheckExpiration(token)
+
+  //   if (isValid) {
+  //     localStorage.setItem('tokenGoogle', token)
+
+  //     dispatch(
+  //       loginByGoogleAccountAction({
+  //         token: token,
+  //       }),
+  //     )
+  //   } else {
+  //     dispatch(showSnackbar(error))
+  //   }
+  // }
+
+  // const handleErrorLogin = (error) => {
+  //   dispatch(showSnackbar(error))
+  // }
+
+  const isOpenLogin = useSelector((state) => state.common.login)
+  const error = useSelector((state) => state.auth.error)
 
   const handleCloseLogin = (event, reason) => {
     if (reason === 'clickaway') {
@@ -29,66 +63,106 @@ export function Login() {
     dispatch(closeLogin())
     dispatch(openRegister())
   }
+  const handleOpenResetPassword = (event, reason) => {
+    dispatch(closeLogin())
+    dispatch(openResetPassword())
+  }
+  const handleLogin = (event, reason) => {
+    try {
+      dispatch(login({ email: account.email, password: account.password }))
+    } catch {}
+  }
+
+  const handleEmail = (e) => {
+    setAccount((preV) => {
+      return { ...preV, email: e.target.value }
+    })
+  }
+
+  const handlePassword = (e) => {
+    setAccount((preV) => {
+      return { ...preV, password: e.target.value }
+    })
+  }
 
   return (
     <>
-      <Dialog
-        size="xs"
-        open={login}
-        handler={handleCloseLogin}
-        className="bg-transparent shadow-none"
-      >
-        <Card className="mx-auto w-full max-w-[24rem]">
-          <CardBody className="flex flex-col gap-4">
-            <Typography
-              variant="h4"
-              className="text-blue-gray-900 text-2xl font-semibold"
-            >
-              Sign In
-            </Typography>
-            <Typography
-              className="mb-2 text-base font-normal text-gray-700"
-              variant="paragraph"
-            >
-              Enter your email and password to Sign In.
-            </Typography>
-            <Typography className="block text-gray-700 text-sm font-bold mb-2">
-              Your Email
-            </Typography>
-            <Input size="lg" className="mb-4" />
-            <Typography
-              className="block text-gray-700 text-sm font-bold mb-2"
-              variant="h6"
-            >
-              Your Password
-            </Typography>
-            <Input label="Password" size="lg" className="mb-4" />
-            <div className="flex items-center">
-              <Checkbox
-                label="Remember Me"
-                className="text-sm "
-              />
+      <Dialog open={isOpenLogin} onClose={handleCloseLogin} fullWidth>
+        <DialogTitle>
+          <div className="font-semibold text-4  xl tracking-tight text-teal-500 flex justify-center ">
+            Login
+          </div>
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            value={account.email}
+            onChange={handleEmail}
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            value={account.password}
+            onChange={handlePassword}
+            label="Password"
+            type="password"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseLogin}>
+            <div className="font-semibold tracking-tight text-teal-500 p-2">
+              Cancel
             </div>
-          </CardBody>
-          <CardFooter className="pt-0">
-            <Typography
-              variant="small"
-              className="mt-4 flex justify-center text-sm"
-            >
-              Don&apos;t have an account?
-              <Typography
-                onClick={handleOpenRegister}
-                as="a"
-                href="#signup"
-                variant="small"
-                color="blue-gray"
-                className="ml-1 font-bold"
-              >
-                Sign up
-              </Typography>
-            </Typography>
-          </CardFooter>
-        </Card>
+          </Button>
+          <Button
+            className="font-semibold text-xl tracking-tight text-teal-500 p-2"
+            onClick={handleLogin}
+          >
+            <div className="font-semibold tracking-tight text-teal-500 p-2">
+              Login
+            </div>
+          </Button>
+        </DialogActions>
+        {error.message !== '' && <p>{error.message}</p>}
+        <Box>
+          <List sx={{ display: 'grid' }}>
+            <div style={{ marginBottom: '10px', width: '100%' }}>
+              <GoogleOAuthProvider clientId="639903958485-8igklr57gr0mtk7n21ioc0vtis98srdu.apps.googleusercontent.com">
+                <GoogleLogin
+                  // onSuccess={handleSuccessLogin}
+                  // onError={handleErrorLogin}
+                  // style={{ marginTop: '100px' }}
+
+                  className=""
+                  cookiePolicy={'single_host_origin'}
+                  isSignedIn={true}
+                />
+              </GoogleOAuthProvider>
+            </div>
+            <Button variant="outlined" onClick={handleOpenResetPassword}>
+              <div className="font-semibold text-xl tracking-tight text-teal-500 p-2">
+                Forgot Password
+              </div>
+            </Button>
+
+            <Button variant="outlined" onClick={handleOpenRegister}>
+              <div className="font-semibold text-xl tracking-tight text-teal-500 p-2">
+                Register
+              </div>
+            </Button>
+          </List>
+        </Box>
       </Dialog>
     </>
   )
