@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { AiFillCar, AiFillGift } from 'react-icons/ai';
+import { BsFillHandbagFill } from 'react-icons/bs';
 import {
   BsFillArrowRightCircleFill,
   BsFillArrowLeftCircleFill,
@@ -52,6 +54,37 @@ export default function Carousel({ slides }) {
             ></div>
           );
         })}
+      </div>
+
+      <div className="flex absolute bottom-20 left-40 ">
+     
+        <div className="flex bg-cyan-200 hover:bg-cyan-500 w-90 rounded-lg p-4 ml-10">
+          <div>
+          <AiFillCar size={80} />
+          </div>
+          <div className="ml-4">
+            <h2 className="text-2xl font-bold ">FREE DELIVERY</h2>
+            <p className="text-xl">lorem lorem lorem lorem </p>
+          </div>
+        </div>
+        <div className="flex bg-cyan-200 hover:bg-cyan-500 w-90 rounded-lg p-4 ml-40">
+          <div>
+          <AiFillGift size={80} />
+          </div>
+          <div className="ml-4">
+            <h2 className="text-2xl font-bold ">REWARD SYSTEM</h2>
+            <p className="text-xl">lorem lorem lorem lorem </p>
+          </div>
+        </div>
+        <div className="flex bg-cyan-200 hover:bg-cyan-500 w-90 rounded-lg p-4 ml-40">
+          <div>
+          <BsFillHandbagFill size={80} />
+          </div>
+          <div className="ml-4">
+            <h2 className="text-2xl font-bold ">PROMOTIONS AND DISCOUNTS</h2>
+            <p className="text-xl">lorem lorem lorem lorem </p>
+          </div>
+        </div>
       </div>
     </div>
   );

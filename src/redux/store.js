@@ -1,15 +1,14 @@
-import categorySlice from "./category/categorySlice";
-
-const { configureStore } = require("@reduxjs/toolkit");
-const { default: productSlice } = require("./product/productSlice");
-
-
+import categorySlice from './category/categorySlice'
+import commonSlice from './common/commonSlice'
+const { configureStore } = require('@reduxjs/toolkit')
+const { default: productSlice } = require('./product/productSlice')
 
 const store = configureStore({
-    reducer:{
-        category: categorySlice,
-        product: productSlice,
-    }
+  reducer: {
+    category: categorySlice,
+    product: productSlice,
+    common: commonSlice,
+  },
 })
 
-export default store;
+export default store
