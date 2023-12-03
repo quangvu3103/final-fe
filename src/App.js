@@ -9,6 +9,10 @@ import UpdateProfile from './page/UpdateProfile'
 import Checkout from './page/Checkout'
 import Notifi from './component/Notifi'
 import ManageCategory from './page/ManageCategory'
+import CreateProduct from './page/CreateProduct'
+import DetailsProduct from './page/DetailsProduct'
+import UpdateProduct from './page/UpdateProduct'
+import OrderDetails from './page/OrderDetails'
 function App() {
   return (
     <>
@@ -22,7 +26,11 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/manageCategory" element={<ManageCategory />} />
+          <Route path="/createProduct" element={<CreateProduct />} />
+          <Route path="/detailsProduct/:id" element={<DetailsProduct />} />
+          <Route path="/orderDetails/:id" element={<OrderDetails />} />
 
+          <Route path="/updateProduct" element={<UpdateProduct />} />
           <Route path="/About" element={<About />} />
           <Route path="/Cart" element={<Cart />} />
         </Routes>

@@ -1,24 +1,88 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import http from "../../service/axios_http";
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import http from '../../service/axios_http'
 
-
-export const getAllProduct = createAsyncThunk('product/getAllProduct', async (data, { rejectWithValue }) => {
+export const getAllProduct = createAsyncThunk(
+  'product/getAllProduct',
+  async (data, { rejectWithValue }) => {
     try {
-        const reponse = await http.get('/product')
-        return reponse
+      const reponse = await http.get('/product')
+      return reponse
     } catch (error) {
-        return rejectWithValue(error)
+      return rejectWithValue(error)
     }
-    }
-);
+  },
+)
 
-export const getProductByCategoryId = createAsyncThunk('product/getProductByCategoryId', async (data, { rejectWithValue }) => {
-    const {id} = data
+export const getProductByCategoryId = createAsyncThunk(
+  'product/getProductByCategoryId',
+  async (data, { rejectWithValue }) => {
+    const { id } = data
     try {
-        const reponse = await http.get(`/product/category/${id}`)
-        return reponse
+      const reponse = await http.get(`/product/category/${id}`)
+      return reponse
     } catch (error) {
-        return rejectWithValue(error)
+      return rejectWithValue(error)
     }
+  },
+)
+
+export const onHandleCreateProduct = createAsyncThunk(
+  'product/onHandleCreateProduct',
+  async (data, { rejectWithValue }) => {
+    try {
+      const reponse = await http.post(`/product`, data)
+      return reponse
+    } catch (error) {
+      return rejectWithValue(error)
     }
-);
+  },
+)
+
+export const updateProduct = createAsyncThunk(
+  'product/updateProduct',
+  async (data, { rejectWithValue }) => {
+    try {
+      const id = data.id
+      const reponse = await http.put(`/product/${id}`, data)
+      return reponse
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
+export const uploadImages = createAsyncThunk(
+  'product/uploadImages',
+  async (data, { rejectWithValue }) => {
+    try {
+      const reponse = await http.post(`/file/multiple-file-upload`, data)
+      return reponse
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
+export const uploadImage = createAsyncThunk(
+  'product/uploadImage',
+  async (data, { rejectWithValue }) => {
+    try {
+      const reponse = await http.post(`/productImg`, data)
+      return reponse
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
+export const getDetailsProduct = createAsyncThunk(
+  'product/getDetailsProduct',
+  async (data, { rejectWithValue }) => {
+    try {
+      const reponse = await http.get(`/product/${data}`)
+      return reponse
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)

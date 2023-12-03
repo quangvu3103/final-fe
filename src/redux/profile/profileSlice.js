@@ -34,7 +34,6 @@ const profileSlice = createSlice({
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
         console.log(action.payload)
-        window.location.href = '/profile'
         state.loading = false
       })
       .addCase(updateProfile.rejected, (state, action) => {

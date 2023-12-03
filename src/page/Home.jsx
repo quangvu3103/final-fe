@@ -9,6 +9,7 @@ import LogosDisplay from '../layout/logo/Logo'
 import { Login } from '../component/Login'
 import { Register } from '../component/Register'
 import ForgotPassword from '../component/ForgotPassword'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -80,20 +81,25 @@ const Home = () => {
             <div class="grid grid-cols-4 gap-4 ">
               {product?.map((item) => {
                 return (
-                  <div
-                    className=" w-48 h-56 border border-blue-200 flex flex-col justify-center items-center rounded hover:scale-105"
-                    key={item?.id}
+                  <Link
+                    to={`/detailsProduct/${item.id}`}
+                    style={{ textDecoration: 'none' }}
                   >
-                    <img
-                      className="h-[60%] w-[60%] hover:scale-105 "
-                      src={item?.images?.[0]?.url}
-                      alt={item?.name}
-                    />
-                    <h3 class="mt-4 text-sm text-gray-700">{item.name}</h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">
-                      ${item.price}
-                    </p>
-                  </div>
+                    <div
+                      className=" w-48 h-56 border border-blue-200 flex flex-col justify-center items-center rounded hover:scale-105"
+                      key={item?.id}
+                    >
+                      <img
+                        className="h-[60%] w-[60%] hover:scale-105 "
+                        src={item?.images?.[0]?.url}
+                        alt={item?.name}
+                      />
+                      <h3 class="mt-4 text-sm text-gray-700">{item.name}</h3>
+                      <p class="mt-1 text-lg font-medium text-gray-900">
+                        ${item.price}
+                      </p>
+                    </div>
+                  </Link>
                 )
               })}
             </div>

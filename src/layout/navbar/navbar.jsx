@@ -68,7 +68,7 @@ const Navbar = () => {
             Home
           </a>
           <a
-            href="Product"
+            href="/Product"
             className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
           >
             Product
