@@ -62,7 +62,7 @@ const Product = () => {
         <Navbar />
       </div>
       <div className="flex flex-col">
-        <div className="flex justify-center items-center flex-col py-10 ">
+        <div className="flex justify-center items-center flex-col  ">
           {/* <h1 className="font-bold text-2xl">All Product</h1>
           <h2>Home Page/All Products </h2> */}
           <div className="relative w-full">

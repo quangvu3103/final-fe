@@ -44,52 +44,10 @@ const DetailsProduct = () => {
           <>
             <body className="antialiased">
               <Box className="py-6">
-                <Box className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <Box className="flex items-center space-x-2 text-gray-400 text-sm">
-                    <a href="#" className="hover:underline hover:text-gray-600">
-                      Home
-                    </a>
-                    <span>
-                      <svg
-                        className="h-5 w-5 leading-none text-gray-300"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </span>
-                    <a href="#" className="hover:underline hover:text-gray-600">
-                      Electronics
-                    </a>
-                    <span>
-                      <svg
-                        className="h-5 w-5 leading-none text-gray-300"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </span>
-                    <span>Headphones</span>
-                  </Box>
-                </Box>
+                <Box className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"></Box>
 
                 <Box className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-                  <Box className="flex flex-col md:flex-row -mx-4">
+                  <Box className="flex flex-col md:flex-row items-center mt-4">
                     <Box className="relative h-56 overflow-hidden rounded-lg md:h-96">
                       {images.length > 0 && (
                         <img
@@ -99,13 +57,15 @@ const DetailsProduct = () => {
                           alt=""
                         />
                       )}
+                      <Box className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-between ">
+                        <Button variant="contained" onClick={prevImage}>
+                          Back
+                        </Button>
+                        <Button variant="contained" onClick={nextImage}>
+                          Next
+                        </Button>
+                      </Box>
                     </Box>
-                    <Button variant="contained" onClick={prevImage}>
-                      Previous
-                    </Button>
-                    <Button variant="contained" onClick={nextImage}>
-                      Next
-                    </Button>
                     <Box className="md:flex-1 px-4">
                       <h2 className="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">
                         {product.name}

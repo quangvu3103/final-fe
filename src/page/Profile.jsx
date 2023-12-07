@@ -38,8 +38,75 @@ const Profile = () => {
           minWith: '100w',
         }}
       >
-        <Box className="w-full lg:w-4/12 px-4 mx-auto">
-          <Box className="relative flex flex-col min-w-0 break-words  w-full mb-6 shadow-2xl rounded-lg ">
+        <Box className="w-full lg:w-12/12 px-4 mx-auto  flex">
+          {' '}
+          <div className="relative flex flex-col min-w-0 break-words  w-full mb-6 shadow-2xl rounded-lg mt-20 text-white ">
+            <nav className="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+              <Link to={`/orderDetails/123`} style={{ textDecoration: 'none' }}>
+                <div
+                  role="button"
+                  className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                >
+                  <div className="grid mr-4 place-items-center">
+                    <img
+                      alt="candice"
+                      src="https://docs.material-tailwind.com/img/face-1.jpg"
+                      className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
+                    />
+                  </div>
+                  <div>
+                    <h6 class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+                      Tania Andrew
+                    </h6>
+                    <p class="block font-sans text-sm antialiased font-normal leading-normal text-teal-200">
+                      Software Engineer @ Material Tailwind
+                    </p>
+                  </div>
+                </div>
+              </Link>
+              <div
+                role="button"
+                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+              >
+                <div class="grid mr-4 place-items-center">
+                  <img
+                    alt="alexander"
+                    src="https://docs.material-tailwind.com/img/face-2.jpg"
+                    className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
+                  />
+                </div>
+                <div>
+                  <h6 className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+                    Alexander
+                  </h6>
+                  <p className="block font-sans text-sm antialiased font-normal leading-normal text-teal-200">
+                    Backend Developer @ Material Tailwind
+                  </p>
+                </div>
+              </div>
+              <div
+                role="button"
+                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+              >
+                <div className="grid mr-4 place-items-center">
+                  <img
+                    alt="emma"
+                    src="https://docs.material-tailwind.com/img/face-3.jpg"
+                    className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
+                  />
+                </div>
+                <div>
+                  <h6 className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+                    Emma Willever
+                  </h6>
+                  <p className="block font-sans text-sm antialiased font-normal leading-normal text-teal-200">
+                    UI/UX Designer @ Material Tailwind
+                  </p>
+                </div>
+              </div>
+            </nav>
+          </div>
+          <Box className="relative flex flex-col min-w-0 break-words  w-full mb-6 shadow-2xl rounded-lg mt-20  text-white">
             <Box className="px-6 pt-24 ">
               <Box className="flex flex-wrap justify-center">
                 <Box className="w-full px-4 flex justify-center">
@@ -80,21 +147,22 @@ const Profile = () => {
                 <Link to={`/updateProfile`} style={{ textDecoration: 'none' }}>
                   <Button
                     style={{
-                      color: 'black',
+                      color: 'white',
+
                       //   backgroundColor: '#A0E9FF',
                     }}
                   >
-                    Update Profile
+                    <strong> Update Profile</strong>
                   </Button>
                 </Link>
                 <Button
                   onClick={handleOpenChangePassword}
                   style={{
-                    color: 'black',
+                    color: 'white',
                     // backgroundColor: '#A0E9FF',
                   }}
                 >
-                  Change Password
+                  <strong> Change Password</strong>
                 </Button>
               </Box>
               <Box className="text-center mt-12">
@@ -122,7 +190,7 @@ const Profile = () => {
                     </p>
                     <a
                       href="javascript:void(0);"
-                      className="font-normal text-pink-500"
+                      className="font-normal text-teal-200"
                     >
                       Show more
                     </a>
@@ -133,73 +201,7 @@ const Profile = () => {
           </Box>
         </Box>
       </Box>
-      <h5>Orders</h5>
-      <div class="relative flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border">
-        <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
-          <Link to={`/orderDetails/123`} style={{ textDecoration: 'none' }}>
-            <div
-              role="button"
-              class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-            >
-              <div class="grid mr-4 place-items-center">
-                <img
-                  alt="candice"
-                  src="https://docs.material-tailwind.com/img/face-1.jpg"
-                  class="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
-                />
-              </div>
-              <div>
-                <h6 class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-                  Tania Andrew
-                </h6>
-                <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                  Software Engineer @ Material Tailwind
-                </p>
-              </div>
-            </div>
-          </Link>
-          <div
-            role="button"
-            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-          >
-            <div class="grid mr-4 place-items-center">
-              <img
-                alt="alexander"
-                src="https://docs.material-tailwind.com/img/face-2.jpg"
-                class="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
-              />
-            </div>
-            <div>
-              <h6 class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-                Alexander
-              </h6>
-              <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                Backend Developer @ Material Tailwind
-              </p>
-            </div>
-          </div>
-          <div
-            role="button"
-            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-          >
-            <div class="grid mr-4 place-items-center">
-              <img
-                alt="emma"
-                src="https://docs.material-tailwind.com/img/face-3.jpg"
-                class="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
-              />
-            </div>
-            <div>
-              <h6 class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-                Emma Willever
-              </h6>
-              <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                UI/UX Designer @ Material Tailwind
-              </p>
-            </div>
-          </div>
-        </nav>
-      </div>
+
       <Footer />
     </>
   )

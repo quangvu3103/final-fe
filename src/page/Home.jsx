@@ -50,10 +50,6 @@ const Home = () => {
       <ForgotPassword />
       <div className=" ">
         <div className="w-[100%] m-auto  ">
-          {/* <img src={image}
-          alt=""
-          className="absolute top-20 left-50 right-0 bottom-0 h-32"
-          /> */}
           <Carousel slides={slides} />
         </div>
         <div className="m-10">
