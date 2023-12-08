@@ -8,11 +8,66 @@ import { getProfile } from '../redux/profile/profileThunk'
 import { openChangePassword } from '../redux/common/commonSlice'
 import ChangePassword from '../component/ChangePassword'
 import { getOrder, getOrderByUserId } from '../redux/order/orderThunk'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js'
+import { Bar } from 'react-chartjs-2'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+
+export const data = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: labels.map(() => 1000),
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+  ],
+}
 
 const ManageOrders = () => {
   const dispatch = useDispatch()
   const error = useSelector((state) => state.profile.error)
   const orders = useSelector((state) => state.order.orders)
+
+  const transformDataForChart = (data) => {
+    let labels = []
+    let orderCounts = []
+
+    if (Array.isArray(data) && data.length > 0) {
+      // Sử dụng Set để lọc ra các trạng thái duy nhất
+      const uniqueStatuses = [...new Set(data.map((item) => item.status))]
+
+      labels = uniqueStatuses
+      orderCounts = uniqueStatuses.map(
+        (status) => data.filter((item) => item.status === status).length,
+      )
+    }
+
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Number of Orders',
+          data: orderCounts,
+          backgroundColor: ['rgba(54, 162, 235, 0.2)'],
+          borderColor: ['rgba(54, 162, 235, 1)'],
+          borderWidth: 1,
+        },
+      ],
+    }
+  }
+
+  const chartData = transformDataForChart(orders)
 
   useEffect(() => {
     dispatch(getOrder())
@@ -33,6 +88,10 @@ const ManageOrders = () => {
           minWith: '100w',
         }}
       >
+        {' '}
+        <Box className=" lg:w-4/12 mx-auto  flex">
+          <Bar data={chartData} />
+        </Box>
         <Box className="w-full lg:w-12/12 px-4 mx-auto  flex">
           {' '}
           <div className="relative flex flex-col min-w-0 break-words  w-full mb-6 shadow-2xl rounded-lg mt-20 text-white ">

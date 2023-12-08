@@ -6,7 +6,7 @@ import Footer from '../layout/footer/Footer'
 import {
   getProfile,
   updateAvatar,
-  updateProfile,
+  onUpdateProfile,
 } from '../redux/profile/profileThunk'
 
 const UpdateProfile = () => {
@@ -16,15 +16,14 @@ const UpdateProfile = () => {
 
   const [profile, setProfile] = useState({
     fullName: '',
-    phoneNumber: '',
     address: '',
     description: '',
-    phone: '',
+    phoneNumber: '',
     url: '',
   })
 
   const handleUpdateProfile = () => {
-    dispatch(updateProfile(profile))
+    dispatch(onUpdateProfile(profile))
   }
 
   useEffect(() => {
@@ -33,10 +32,9 @@ const UpdateProfile = () => {
       .then((res) => {
         setProfile({
           fullName: res.fullName,
-          phoneNumber: res.phoneNumber,
           address: res.address,
           description: res.description,
-          phone: res.phone,
+          phoneNumber: res.phoneNumber,
           url: res.url,
         })
       })
@@ -56,7 +54,7 @@ const UpdateProfile = () => {
 
   const handlePhone = (e) => {
     setProfile((preV) => {
-      return { ...preV, phone: e.target.value }
+      return { ...preV, phoneNumber: e.target.value }
     })
   }
 
@@ -82,12 +80,6 @@ const UpdateProfile = () => {
         })
     }
   }
-
-  useEffect(() => {
-    if (profile.url) {
-      dispatch(updateProfile(profile))
-    }
-  }, [profile.url])
 
   return (
     <>
@@ -173,10 +165,10 @@ const UpdateProfile = () => {
             </Box>
             <Box className="mt-10 py-10 border-t border-blueGray-200 text-center">
               <Box className="flex flex-wrap justify-center">
+                Description
                 <TextField
                   fullWidth
                   id="standard-multiline-static"
-                  label="Description"
                   multiline
                   rows={4}
                   defaultValue={profile.description}

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import http from '../../service/axios_http'
+import { openNotification } from '../common/commonSlice'
 
 export const getProfile = createAsyncThunk(
   'profile/getProfile',
@@ -25,14 +26,15 @@ export const getProfile = createAsyncThunk(
 //   },
 // )
 
-export const updateProfile = createAsyncThunk(
-  'profile/updateProfile',
-  async (data, { rejectWithValue }) => {
+export const onUpdateProfile = createAsyncThunk(
+  'profile/onUpdateProfile',
+  async (data, thunkApi) => {
     try {
       const response = await http.patch('/profile', data)
+      thunkApi.dispatch(openNotification('Update Profile Success'))
       return response
     } catch (error) {
-      return rejectWithValue(error)
+      return thunkApi.rejectWithValue(error)
     }
   },
 )

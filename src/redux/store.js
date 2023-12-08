@@ -4,6 +4,7 @@ import commonSlice from './common/commonSlice'
 import profileSlice from './profile/profileSlice'
 import productSlice from './product/productSlice'
 import orderSlice from './order/orderSlice'
+import notificationSlice from './notification/notificationSlice'
 const { configureStore } = require('@reduxjs/toolkit')
 
 const store = configureStore({
@@ -14,6 +15,7 @@ const store = configureStore({
     auth: authSlice,
     profile: profileSlice,
     order: orderSlice,
+    notification: notificationSlice,
   },
 })
 

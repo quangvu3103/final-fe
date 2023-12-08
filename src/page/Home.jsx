@@ -45,9 +45,9 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <Login />
+      {/* <Login />
       <Register />
-      <ForgotPassword />
+      <ForgotPassword /> */}
       <div className=" ">
         <div className="w-[100%] m-auto  ">
           <Carousel slides={slides} />

@@ -34,16 +34,19 @@ const ManageCategory = () => {
       <div className="">
         <Navbar />
       </div>
-      <div>
-        <h3>Create Category</h3>
-        <TextField
-          id="outlined-basic"
-          label="Name Category"
-          variant="outlined"
-          value={name}
-          onChange={handleChangeName}
-        />
-        <Button onClick={handleCreateCategory}>Create Category</Button>
+      <div className="grid justify-center">
+        <div>
+          {' '}
+          <h2>Create Category</h2>
+          <TextField
+            id="outlined-basic"
+            label="Name Category"
+            variant="outlined"
+            value={name}
+            onChange={handleChangeName}
+          />
+          <Button onClick={handleCreateCategory}>Create Category</Button>
+        </div>
 
         <div class="relative flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border">
           <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">

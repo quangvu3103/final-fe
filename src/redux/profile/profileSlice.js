@@ -1,6 +1,6 @@
 import DecodeTokenAndCheck from '../../service/DecodeTokenAndCheck'
 import { jwtDecode } from 'jwt-decode'
-import { getProfile, updateAvatar, updateProfile } from './profileThunk'
+import { getProfile, updateAvatar, onUpdateProfile } from './profileThunk'
 
 const { createSlice } = require('@reduxjs/toolkit')
 
@@ -29,14 +29,14 @@ const profileSlice = createSlice({
         state.loading = false
         state.error = action.payload
       })
-      .addCase(updateProfile.pending, (state, action) => {
+      .addCase(onUpdateProfile.pending, (state, action) => {
         state.loading = true
       })
-      .addCase(updateProfile.fulfilled, (state, action) => {
+      .addCase(onUpdateProfile.fulfilled, (state, action) => {
         console.log(action.payload)
         state.loading = false
       })
-      .addCase(updateProfile.rejected, (state, action) => {
+      .addCase(onUpdateProfile.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

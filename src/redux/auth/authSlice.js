@@ -16,6 +16,7 @@ if (localStorage.getItem('token')) {
 const initialState = {
   isLoggedIn: isLoggedIn.isValid,
   userName: userSignedIn.email,
+  userId: userSignedIn.id,
   role: userSignedIn.role,
   avartar: '',
   loading: false,

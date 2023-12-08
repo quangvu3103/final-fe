@@ -21,9 +21,7 @@ const Checkout = () => {
   }, [])
   const handleCreateOrder = async () => {
     // Await the promise returned by the dispatch function
-    const orderID = await dispatch(
-      createOrderPaypal(cart?.orderDetails[0].price),
-    ).unwrap()
+    const orderID = await dispatch(createOrderPaypal(cart?.totalPrice)).unwrap()
     // Assuming createOrderPaypal action correctly returns an order ID
 
     return orderID

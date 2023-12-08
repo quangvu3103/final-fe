@@ -14,10 +14,16 @@ import DetailsProduct from './page/DetailsProduct'
 import UpdateProduct from './page/UpdateProduct'
 import OrderDetails from './page/OrderDetails'
 import ManageOrders from './page/ManageOrders'
+import { Login } from './component/Login'
+import { Register } from './component/Register'
+import ForgotPassword from './component/ForgotPassword'
 function App() {
   return (
     <>
       <Notifi />
+      <Login />
+      <Register />
+      <ForgotPassword />
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

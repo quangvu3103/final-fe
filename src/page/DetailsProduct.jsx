@@ -99,10 +99,11 @@ const DetailsProduct = () => {
                       <Box className="flex items-center space-x-4 my-4">
                         <Box>
                           <Box className="rounded-lg bg-gray-100 flex py-2 px-3">
-                            <span className="text-indigo-400 mr-1 mt-1">$</span>
+                           
                             <span className="font-bold text-indigo-600 text-3xl">
                               {product.price}
                             </span>
+                            <span className="text-indigo-400 mr-1 mt-1">VND</span>
                           </Box>
                         </Box>
                         <Box className="flex-1">

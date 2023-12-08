@@ -35,6 +35,7 @@ const categorySllice = createSlice({
       })
       .addCase(createCategory.fulfilled, (state, action) => {
         state.loading = false
+        state.data.push(action.payload)
       })
       .addCase(createCategory.rejected, (state, action) => {
         state.loading = false
@@ -56,7 +57,8 @@ const categorySllice = createSlice({
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
         state.loading = false
-        // window.location.href = '/manageCategory'
+        const categoryIdToDelete = action.payload.id
+        state.data = state.data.filter((cate) => cate.id !== categoryIdToDelete)
       })
       .addCase(deleteCategory.rejected, (state, action) => {
         state.loading = false

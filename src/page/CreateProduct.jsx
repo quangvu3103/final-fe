@@ -66,6 +66,9 @@ const CreateProduct = () => {
 
     const filesResult = await dispatch(uploadImages(data)).unwrap()
     console.log(filesResult)
+
+    product.price = parseInt(product.price)
+    product.quantity = parseInt(product.quantity)
     const createProductResult = await dispatch(
       onHandleCreateProduct(product),
     ).unwrap()
