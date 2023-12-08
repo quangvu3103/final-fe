@@ -1,7 +1,6 @@
 import { changePassword, login, register, resetPassword } from './authThunk'
 import DecodeTokenAndCheck from '../../service/DecodeTokenAndCheck'
 import { jwtDecode } from 'jwt-decode'
-import { closeLogin } from '../common/commonThunk'
 
 const { createSlice } = require('@reduxjs/toolkit')
 
@@ -16,8 +15,8 @@ if (localStorage.getItem('token')) {
 
 const initialState = {
   isLoggedIn: isLoggedIn.isValid,
-  userName: '',
-  role: '',
+  userName: userSignedIn.email,
+  role: userSignedIn.role,
   avartar: '',
   loading: false,
   error: [],

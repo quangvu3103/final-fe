@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
   const dispatch = useDispatch()
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
+  const role = useSelector((state) => state.auth.role)
 
   const handleOpenLogin = () => {
     dispatch(openLogin())
@@ -59,69 +60,133 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="w-full block lg:flex lg:items-center lg:w-auto pr-10">
-        <div className="text-sm flex ">
-          <a
-            href="/"
-            className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
-          >
-            Home
-          </a>
-          <a
-            href="/Product"
-            className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
-          >
-            Product
-          </a>
-          <a
-            href="About"
-            className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
-          >
-            About Us
-          </a>
-          <a
-            href="#responsive-header"
-            className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
-          >
-            Contact
-          </a>
+      {role === 'User' ? (
+        <>
+          <div className="w-full block lg:flex lg:items-center lg:w-auto pr-10">
+            <div className="text-sm flex ">
+              <a
+                href="/"
+                className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
+              >
+                Home
+              </a>
+              <a
+                href="/Product"
+                className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
+              >
+                Product
+              </a>
+              <a
+                href="About"
+                className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
+              >
+                About Us
+              </a>
+              <a
+                href="#responsive-header"
+                className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
+              >
+                Contact
+              </a>
 
-          <div className="flex text-lg  lg:mt-0 text-teal-500 ">
-            <BsCartFill size={25} />
-            <Link to={`/cart`} style={{ textDecoration: 'none' }}>
-              Cart
-            </Link>
-          </div>
-
-          <div className="flex  text-lg  lg:mt-0 text-teal-500 ">
-            <MdAccountBox size={30} />
-            {isLoggedIn ? (
-              <>
-                <Link to={`/profile`} style={{ textDecoration: 'none' }}>
-                  <button className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2">
-                    Profiles
-                  </button>
+              <div className="flex text-lg  lg:mt-0 text-teal-500 ">
+                <BsCartFill size={25} />
+                <Link to={`/cart`} style={{ textDecoration: 'none' }}>
+                  Cart
                 </Link>
-                <button
-                  onClick={handleOpenLogout}
-                  className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
-                >
-                  Log Out
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={handleOpenLogin}
-                  className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
-                >
-                  Login
-                </button>
-              </>
-            )}
+              </div>
+
+              <div className="flex  text-lg  lg:mt-0 text-teal-500 ">
+                <MdAccountBox size={30} />
+                {isLoggedIn ? (
+                  <>
+                    <Link to={`/profile`} style={{ textDecoration: 'none' }}>
+                      <button className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2">
+                        Profiles
+                      </button>
+                    </Link>
+                    <button
+                      onClick={handleOpenLogout}
+                      className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
+                    >
+                      Log Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={handleOpenLogin}
+                      className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
+                    >
+                      Login
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <>
+          <div className="w-full block lg:flex lg:items-center lg:w-auto pr-10">
+            <div className="text-sm flex ">
+              <a
+                href="/"
+                className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
+              >
+                Home
+              </a>
+              <a
+                href="/manageCategory"
+                className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
+              >
+                Manage Category
+              </a>
+
+              <a
+                href="/createProduct"
+                className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
+              >
+                Create Product
+              </a>
+              <a
+                href="/manageOrders"
+                className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
+              >
+                Manage Orders
+              </a>
+
+              <div className="flex  text-lg  lg:mt-0 text-teal-500 ">
+                <MdAccountBox size={30} />
+                {isLoggedIn ? (
+                  <>
+                    <Link to={`/profile`} style={{ textDecoration: 'none' }}>
+                      <button className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2">
+                        Profiles
+                      </button>
+                    </Link>
+                    <button
+                      onClick={handleOpenLogout}
+                      className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
+                    >
+                      Log Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={handleOpenLogin}
+                      className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4 ml-2"
+                    >
+                      Login
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </nav>
   )
 }

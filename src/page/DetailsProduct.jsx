@@ -3,8 +3,9 @@ import Navbar from '../layout/navbar/navbar'
 import Footer from '../layout/footer/Footer'
 import { Box, Button } from '@mui/material'
 import { useParams } from 'react-router-dom'
-import { getDetailsProduct } from '../redux/product/productThunk'
+import { deleteProduct, getDetailsProduct } from '../redux/product/productThunk'
 import { useDispatch, useSelector } from 'react-redux'
+import { createOrder } from '../redux/order/orderThunk'
 
 const DetailsProduct = () => {
   const { id } = useParams()
@@ -17,6 +18,7 @@ const DetailsProduct = () => {
   const product = useSelector((state) => state.product.product)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const loading = useSelector((state) => state.product.loading)
+  const role = useSelector((state) => state.auth.role)
 
   useEffect(() => {
     console.log('Product:', product)
@@ -36,6 +38,23 @@ const DetailsProduct = () => {
     )
   }
 
+  const handleCreateOrder = (event, reason) => {
+    try {
+      dispatch(
+        createOrder({
+          totalPrice: product.price,
+          quantity: 1,
+          productId: product.id,
+        }),
+      )
+    } catch {}
+  }
+
+  const handleDeleteProduct = (event, reason) => {
+    try {
+      dispatch(deleteProduct(product.id))
+    } catch {}
+  }
   return (
     <>
       <Navbar />
@@ -97,43 +116,67 @@ const DetailsProduct = () => {
                       </Box>
 
                       <p className="text-gray-500">{product.description}</p>
+                      {role === 'User' ? (
+                        <>
+                          {' '}
+                          <Box className="flex py-4 space-x-4">
+                            <Box className="relative">
+                              <Box className="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">
+                                Qty
+                              </Box>
+                              <select className="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                              </select>
 
-                      <Box className="flex py-4 space-x-4">
-                        <Box className="relative">
-                          <Box className="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">
-                            Qty
+                              <svg
+                                className="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+                                />
+                              </svg>
+                            </Box>
+
+                            <button
+                              onClick={handleCreateOrder}
+                              type="button"
+                              className="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
+                            >
+                              Add to Cart
+                            </button>
                           </Box>
-                          <select className="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </select>
-
-                          <svg
-                            className="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-                            />
-                          </svg>
-                        </Box>
-
-                        <button
-                          type="button"
-                          className="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
-                        >
-                          Add to Cart
-                        </button>
-                      </Box>
+                        </>
+                      ) : (
+                        <>
+                          {' '}
+                          <Box className="flex py-4 space-x-4">
+                            <a
+                              href={'/updateProduct/' + product.id}
+                              className="block text-lg mt-4 lg:inline-block lg:mt-0 text-teal-500 hover:text-white mr-4"
+                            >
+                              Update Product
+                            </a>
+                            <button
+                              onClick={handleDeleteProduct}
+                              type="button"
+                              className="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
+                            >
+                              Delete Product
+                            </button>
+                          </Box>
+                        </>
+                      )}
                     </Box>
                   </Box>
                 </Box>

@@ -31,12 +31,13 @@ export const createCategory = createAsyncThunk(
 
 export const updateCategory = createAsyncThunk(
   'category/updateCategory',
-  async (data, { rejectWithValue }) => {
+  async (data, thunkApi) => {
     try {
-      const response = await http.patch('/category')
+      const response = await http.patch('/category', data)
+      thunkApi.dispatch(openNotification('Update Category Success'))
       return response
     } catch (error) {
-      return rejectWithValue(error)
+      return thunkApi.rejectWithValue(error)
     }
   },
 )
@@ -49,7 +50,11 @@ export const deleteCategory = createAsyncThunk(
       thunkApi.dispatch(openNotification('Delete Category Success'))
       return response
     } catch (error) {
-      return thunkApi.rejectWithValue(error)
+      return thunkApi.dispatch(
+        openNotification(
+          'Cannnot delete category cause category have products exist',
+        ),
+      )
     }
   },
 )

@@ -1,4 +1,5 @@
 import {
+  deleteProduct,
   getAllProduct,
   getDetailsProduct,
   getProductByCategoryId,
@@ -97,6 +98,16 @@ const productSllice = createSlice({
         state.product = action.payload
       })
       .addCase(getDetailsProduct.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(deleteProduct.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.loading = false
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

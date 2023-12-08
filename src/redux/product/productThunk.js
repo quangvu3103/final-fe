@@ -42,8 +42,19 @@ export const updateProduct = createAsyncThunk(
   'product/updateProduct',
   async (data, { rejectWithValue }) => {
     try {
-      const id = data.id
-      const reponse = await http.put(`/product/${id}`, data)
+      const reponse = await http.put(`/product/${data.id}`, data.product)
+      return reponse
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
+export const deleteProduct = createAsyncThunk(
+  'product/deleteProduct',
+  async (data, { rejectWithValue }) => {
+    try {
+      const reponse = await http.patch(`/product/${data}`)
       return reponse
     } catch (error) {
       return rejectWithValue(error)

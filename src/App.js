@@ -13,6 +13,7 @@ import CreateProduct from './page/CreateProduct'
 import DetailsProduct from './page/DetailsProduct'
 import UpdateProduct from './page/UpdateProduct'
 import OrderDetails from './page/OrderDetails'
+import ManageOrders from './page/ManageOrders'
 function App() {
   return (
     <>
@@ -29,10 +30,9 @@ function App() {
           <Route path="/createProduct" element={<CreateProduct />} />
           <Route path="/detailsProduct/:id" element={<DetailsProduct />} />
           <Route path="/orderDetails/:id" element={<OrderDetails />} />
-
-          <Route path="/updateProduct" element={<UpdateProduct />} />
+          <Route path="/updateProduct/:id" element={<UpdateProduct />} />
           <Route path="/About" element={<About />} />
-          <Route path="/Cart" element={<Cart />} />
+          <Route path="/manageOrders" element={<ManageOrders />} />
         </Routes>
       </Router>
     </>

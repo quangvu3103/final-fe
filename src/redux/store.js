@@ -2,8 +2,9 @@ import authSlice from './auth/authSlice'
 import categorySlice from './category/categorySlice'
 import commonSlice from './common/commonSlice'
 import profileSlice from './profile/profileSlice'
+import productSlice from './product/productSlice'
+import orderSlice from './order/orderSlice'
 const { configureStore } = require('@reduxjs/toolkit')
-const { default: productSlice } = require('./product/productSlice')
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     common: commonSlice,
     auth: authSlice,
     profile: profileSlice,
+    order: orderSlice,
   },
 })
 

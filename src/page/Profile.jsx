@@ -7,14 +7,17 @@ import { Link } from 'react-router-dom'
 import { getProfile } from '../redux/profile/profileThunk'
 import { openChangePassword } from '../redux/common/commonSlice'
 import ChangePassword from '../component/ChangePassword'
+import { getOrderByUserId } from '../redux/order/orderThunk'
 
 const Profile = () => {
   const dispatch = useDispatch()
   const profile = useSelector((state) => state.profile.profile)
   const error = useSelector((state) => state.profile.error)
+  const orders = useSelector((state) => state.order.orders)
 
   useEffect(() => {
     dispatch(getProfile())
+    dispatch(getOrderByUserId())
   }, [])
   const handleOpenChangePassword = (e) => {
     dispatch(openChangePassword())
@@ -42,68 +45,33 @@ const Profile = () => {
           {' '}
           <div className="relative flex flex-col min-w-0 break-words  w-full mb-6 shadow-2xl rounded-lg mt-20 text-white ">
             <nav className="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
-              <Link to={`/orderDetails/123`} style={{ textDecoration: 'none' }}>
-                <div
-                  role="button"
-                  className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+              {orders.map((order) => (
+                <Link
+                  to={`/orderDetails/${order.id}`}
+                  style={{ textDecoration: 'none' }}
                 >
-                  <div className="grid mr-4 place-items-center">
-                    <img
-                      alt="candice"
-                      src="https://docs.material-tailwind.com/img/face-1.jpg"
-                      className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
-                    />
+                  <div
+                    role="button"
+                    className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  >
+                    <div className="grid mr-4 place-items-center">
+                      <img
+                        alt="candice"
+                        src="https://docs.material-tailwind.com/img/face-1.jpg"
+                        className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
+                      />
+                    </div>
+                    <div>
+                      <h6 class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+                        {order.dateOrder} | {order.status}
+                      </h6>
+                      <p class="block font-sans text-sm antialiased font-normal leading-normal text-teal-200">
+                        {order.totalPrice} VND
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h6 class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-                      Tania Andrew
-                    </h6>
-                    <p class="block font-sans text-sm antialiased font-normal leading-normal text-teal-200">
-                      Software Engineer @ Material Tailwind
-                    </p>
-                  </div>
-                </div>
-              </Link>
-              <div
-                role="button"
-                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-              >
-                <div class="grid mr-4 place-items-center">
-                  <img
-                    alt="alexander"
-                    src="https://docs.material-tailwind.com/img/face-2.jpg"
-                    className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
-                  />
-                </div>
-                <div>
-                  <h6 className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-                    Alexander
-                  </h6>
-                  <p className="block font-sans text-sm antialiased font-normal leading-normal text-teal-200">
-                    Backend Developer @ Material Tailwind
-                  </p>
-                </div>
-              </div>
-              <div
-                role="button"
-                class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-              >
-                <div className="grid mr-4 place-items-center">
-                  <img
-                    alt="emma"
-                    src="https://docs.material-tailwind.com/img/face-3.jpg"
-                    className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
-                  />
-                </div>
-                <div>
-                  <h6 className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-                    Emma Willever
-                  </h6>
-                  <p className="block font-sans text-sm antialiased font-normal leading-normal text-teal-200">
-                    UI/UX Designer @ Material Tailwind
-                  </p>
-                </div>
-              </div>
+                </Link>
+              ))}
             </nav>
           </div>
           <Box className="relative flex flex-col min-w-0 break-words  w-full mb-6 shadow-2xl rounded-lg mt-20  text-white">

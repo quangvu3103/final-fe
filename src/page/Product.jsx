@@ -1,145 +1,184 @@
-import React, { useState } from 'react'
 import Navbar from '../layout/navbar/navbar'
-import imageProduct from '../img/anhnen3r.jpg'
 import Footer from '../layout/footer/Footer'
 import { Link } from 'react-router-dom'
+import { Fragment, useEffect, useState } from 'react'
+import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllCategory } from '../redux/category/categoryThunk'
+import { getProductByCategoryId } from '../redux/product/productThunk'
 
-const Product = () => {
-  const products = [
-    {
-      id: 1,
-      name: 'a',
-      price: 200,
-      imageSrc:
-        'https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg',
-    },
-    {
-      id: 2,
-      name: 'a',
-      price: 200,
-      imageSrc:
-        'https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg',
-    },
-    {
-      id: 3,
-      name: 'a',
-      price: 200,
-      imageSrc:
-        'https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg',
-    },
-    {
-      id: 4,
-      name: 'a',
-      price: 200,
-      imageSrc:
-        'https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg',
-    },
-    {
-      id: 5,
-      name: 'a',
-      price: 200,
-      imageSrc:
-        'https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg',
-    },
-    {
-      id: 6,
-      name: 'a',
-      price: 200,
-      imageSrc:
-        'https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg',
-    },
-    {
-      id: 7,
-      name: 'a',
-      price: 200,
-      imageSrc:
-        'https://www.teenaagnel.com/wp-content/uploads/2019/12/food-photography-in-dubai.jpg',
-    },
+const filters = [
+  {
+    id: 'category',
+    name: 'Price',
+    options: [
+      {
+        value: 'new-arrivals',
+        label: '200000 VND - 300000 VND',
+        checked: false,
+      },
+      { value: 'sale', label: '300000 VND - 400000 VND', checked: false },
+      { value: 'travel', label: '400000 VND - 500000 VND', checked: true },
+      {
+        value: 'organization',
+        label: '500000 VND - 600000 VND',
+        checked: false,
+      },
+    ],
+  },
+]
+
+export default function Product() {
+  const dispatch = useDispatch()
+  const category = useSelector((state) => state.category.data)
+  const [categoryId, setCategoryId] = useState(category.id)
+  const products = useSelector((state) => state.product.data)
+
+  useEffect(() => {
+    dispatch(getAllCategory())
+      .unwrap()
+      .then((res) => {
+        setCategoryId(res?.[0]?.id)
+      })
+  }, [])
+
+  useEffect(() => {
+    if (categoryId) {
+      dispatch(getProductByCategoryId({ id: categoryId }))
+    }
+  }, [categoryId])
+
+  let slides = [
+    'https://i.pinimg.com/originals/51/82/ac/5182ac536727d576c78a9320ac62de30.jpg',
+    'https://wallpapercave.com/wp/wp3386769.jpg',
+    'https://wallpaperaccess.com/full/809523.jpg',
+    'https://getwallpapers.com/wallpaper/full/5/c/0/606489.jpg',
   ]
-  return (
-    <>
-      <div className="">
-        <Navbar />
-      </div>
-      <div className="flex flex-col">
-        <div className="flex justify-center items-center flex-col  ">
-          {/* <h1 className="font-bold text-2xl">All Product</h1>
-          <h2>Home Page/All Products </h2> */}
-          <div className="relative w-full">
-            <img
-              src={imageProduct}
-              alt=""
-              className="w-full h-96 object-cover"
-            />
-            <div className="absolute top-0 left-0 right-0 bottom-0  flex justify-center items-center">
-              <span className="text-black text-xl">
-                <h1 className="font-bold text-3xl flex justify-center items-center">
-                  All Product
-                </h1>
-                <h2>
-                  <Link
-                    to="/Home"
-                    className="text-current hover:text-teal-500 transition duration-300 ease-in-out "
-                  >
-                    Home
-                  </Link>{' '}
-                  /
-                  <Link
-                    to="/all-products"
-                    className="text-current hover:text-teal-500 transition duration-300 ease-in-out"
-                  >
-                    All Products
-                  </Link>
-                </h2>
-              </span>
-            </div>
-          </div>
-        </div>
-        {/* Thêm flex container bao gồm sidebar và content */}
-        <div className="flex flex-row min-h-screen">
-          {/* Sidebar bộ lọc sản phẩm */}
-          <div className="w-1/4 bg-white p-4">
-            <div className="mb-4 ">
-              <div className="rounded-md border border-black p-5 mb-5 ">
-                <h1 className="font-bold text-xl mb-2">Category</h1>
-                <h2 className="">Cat Food</h2>
-                <h3>Dog Food</h3>
-              </div>
 
-              {/* Ví dụ: */}
-              <div className="mb-4 rounded-md border border-black p-5">
-                <h1 className="font-bold mb-1">Filter products</h1>
-                {/* Thêm danh mục lọc tại đây */}
+  const handleChangeCategory = (id) => {
+    setCategoryId(id)
+  }
+
+  return (
+    <div className="bg-white">
+      <Navbar />
+      <div>
+        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <section aria-labelledby="products-heading" className="pb-24 pt-6">
+            <h2 id="products-heading" className="sr-only">
+              Products
+            </h2>
+
+            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+              {/* Filters */}
+              <form className="hidden lg:block">
+                <h3 className="sr-only">Categories</h3>
+                <ul
+                  role="list"
+                  className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
+                >
+                  {category.map((category) => (
+                    <li key={category.name}>
+                      <a onClick={() => handleChangeCategory(category.id)}>
+                        {category.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+
+                {filters.map((section) => (
+                  <Disclosure
+                    as="div"
+                    key={section.id}
+                    className="border-b border-gray-200 py-6"
+                  >
+                    {({ open }) => (
+                      <>
+                        <h3 className="-my-3 flow-root">
+                          <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                            <span className="font-medium text-gray-900">
+                              {section.name}
+                            </span>
+                            <span className="ml-6 flex items-center">
+                              {open ? (
+                                <MinusIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              ) : (
+                                <PlusIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        </h3>
+                        <Disclosure.Panel className="pt-6">
+                          <div className="space-y-4">
+                            {section.options.map((option, optionIdx) => (
+                              <div
+                                key={option.value}
+                                className="flex items-center"
+                              >
+                                <input
+                                  id={`filter-${section.id}-${optionIdx}`}
+                                  name={`${section.id}[]`}
+                                  defaultValue={option.value}
+                                  type="checkbox"
+                                  defaultChecked={option.checked}
+                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <label
+                                  htmlFor={`filter-${section.id}-${optionIdx}`}
+                                  className="ml-3 text-sm text-gray-600"
+                                >
+                                  {option.label}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ))}
+              </form>
+
+              {/* Product grid */}
+              <div className="lg:col-span-3">
+                {/* Your content */}
+                <h1 className="mb-5 font-bold text-2xl   ">Product</h1>
+                <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                  {products.map((product) => (
+                    <Link
+                      to={`/detailsProduct/${product.id}`}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                        <img
+                          src={product.images[0].url}
+                          alt={product.name}
+                          className="h-full w-full object-cover object-center group-hover:opacity-75"
+                        />
+                      </div>
+                      <h3 className="mt-4 text-sm text-gray-700">
+                        {product.name}
+                      </h3>
+                      <p className="mt-1 text-lg font-medium text-gray-900">
+                        {product.price}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
               </div>
-              {/* Thêm các thành phần lọc khác tại đây */}
             </div>
-          </div>
-          {/* Nội dung chính */}
-          <div className="w-3/4 p-10  ">
-            <h1 className="mb-5 font-bold text-2xl   ">Product</h1>
-            <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-              {products.map((product) => (
-                <a key={product.id} className="group">
-                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                    <img
-                      src={product.imageSrc}
-                      alt={product.name}
-                      className="h-full w-full object-cover object-center group-hover:opacity-75"
-                    />
-                  </div>
-                  <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-                  <p className="mt-1 text-lg font-medium text-gray-900">
-                    {product.price}
-                  </p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
+          </section>
+        </main>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
-
-export default Product

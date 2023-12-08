@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../layout/navbar/navbar'
 import Footer from '../layout/footer/Footer'
-import {
-  Autocomplete,
-  Box,
-  Button,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  TextField,
-} from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { Box, Button, TextField } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import { getAllCategory } from '../redux/category/categoryThunk'
+import { useParams } from 'react-router-dom'
+import { getDetailsProduct, updateProduct } from '../redux/product/productThunk'
 
 const UpdateProduct = () => {
   const dispatch = useDispatch()
+  const { id } = useParams()
+
   const [product, setProduct] = useState({
     name: '',
-    quantity: '',
-    price: '',
+    quantity: 0,
+    price: 0,
     description: '',
-    categoryId: '',
   })
+
+  useEffect(() => {
+    dispatch(getDetailsProduct(id))
+      .unwrap()
+      .then((res) => {
+        setProduct({
+          name: res.name,
+          quantity: res.quantity,
+          price: res.price,
+          description: res.description,
+        })
+      })
+  }, [])
 
   const handleCategoryChange = (value) => {
     console.log(value.id)
@@ -49,39 +57,15 @@ const UpdateProduct = () => {
       return { ...preV, description: e.target.value }
     })
   }
-  const handleCreateProduct = (value) => {
-    alert(
-      product.name +
-        product.quantity +
-        product.price +
-        product.description +
-        product.categoryId,
-    )
+  const handleUpdateProduct = async (value) => {
+    alert(product.name + product.quantity + product.price + product.description)
+    product.quantity = parseInt(product.quantity)
+    product.price = parseInt(product.price)
+    await dispatch(updateProduct({ id: id, product: product })).unwrap()
   }
-  const [imagesUpload, setImagesUpload] = useState([])
   useEffect(() => {
     dispatch(getAllCategory())
   }, [])
-  const categories = useSelector((state) => state.category.data)
-
-  const handleUploadImage = (event) => {
-    const file = event.target.files[0]
-
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const dataURL = e.target.result
-        setImagesUpload([...imagesUpload, dataURL])
-      }
-
-      reader.readAsDataURL(file)
-    }
-  }
-  const handleRemoveImage = (index) => {
-    setImagesUpload((prevImagesUpload) =>
-      prevImagesUpload.filter((_, i) => i !== index),
-    )
-  }
 
   return (
     <>
@@ -105,32 +89,6 @@ const UpdateProduct = () => {
                 onChange={handleNameChange}
               />
             </Box>
-          </Box>
-          <Box>
-            <ImageList sx={{ width: 500 }} cols={3} variant="quilted">
-              {imagesUpload.map((item, index) => (
-                <>
-                  <ImageListItem
-                    key={index}
-                    cols={item.cols || 1}
-                    rows={item.rows || 1}
-                  >
-                    <img src={item} loading="lazy" />
-                    <ImageListItemBar
-                      actionIcon={
-                        <Button
-                          sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                          aria-label={`info about ${item.title}`}
-                          onClick={() => handleRemoveImage(index)}
-                        >
-                          X
-                        </Button>
-                      }
-                    />
-                  </ImageListItem>
-                </>
-              ))}
-            </ImageList>
           </Box>
 
           <Box class="flex flex-wrap -mx-3 mb-6">
@@ -164,29 +122,6 @@ const UpdateProduct = () => {
                 onChange={handlePriceChange}
               />
             </Box>
-            <Box class="w-full px-3">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-password"
-              >
-                Categories
-              </label>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={categories}
-                getOptionLabel={(option) => option.name}
-                sx={{ width: 300 }}
-                onChange={(event, selectedOption) => {
-                  if (selectedOption) {
-                    handleCategoryChange(selectedOption)
-                  }
-                }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Category" />
-                )}
-              />
-            </Box>
 
             <Box class="w-full px-3">
               <label
@@ -207,7 +142,7 @@ const UpdateProduct = () => {
               />
             </Box>
           </Box>
-          <Button onClick={handleCreateProduct}>Update Product</Button>
+          <Button onClick={handleUpdateProduct}>Update Product</Button>
         </form>
       </Box>
       <Footer />
