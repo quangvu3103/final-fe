@@ -12,6 +12,17 @@ export const login = createAsyncThunk(
     }
   },
 )
+export const loginGoogle = createAsyncThunk(
+  'auth/loginGoogle',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await http.post('/auth/login-google', data)
+      return response
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
 
 export const register = createAsyncThunk(
   'auth/register',

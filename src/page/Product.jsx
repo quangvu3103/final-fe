@@ -62,10 +62,10 @@ export default function Product() {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white h-full">
       <Navbar />
       <div>
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
           <section aria-labelledby="products-heading" className="pb-24 pt-6">
             <h2 id="products-heading" className="sr-only">
               Products

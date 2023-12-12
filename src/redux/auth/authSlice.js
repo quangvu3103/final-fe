@@ -1,4 +1,4 @@
-import { changePassword, login, register, resetPassword } from './authThunk'
+import { changePassword, login, loginGoogle, register, resetPassword } from './authThunk'
 import DecodeTokenAndCheck from '../../service/DecodeTokenAndCheck'
 import { jwtDecode } from 'jwt-decode'
 
@@ -41,6 +41,20 @@ const authSlice = createSlice({
         window.location.href = '/'
       })
       .addCase(login.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(loginGoogle.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(loginGoogle.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.loading = false
+        localStorage.setItem('token', action.payload.accessToken)
+        state.message = 'Login Suceess'
+        window.location.href = '/'
+      })
+      .addCase(loginGoogle.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

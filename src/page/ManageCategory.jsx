@@ -48,7 +48,7 @@ const ManageCategory = () => {
           <Button onClick={handleCreateCategory}>Create Category</Button>
         </div>
 
-        <div class="relative flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border">
+        <div class="relative flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border h-screen">
           <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
             {categories?.map((item, index) => (
               <div

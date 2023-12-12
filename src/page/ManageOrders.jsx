@@ -44,7 +44,6 @@ const ManageOrders = () => {
     let orderCounts = []
 
     if (Array.isArray(data) && data.length > 0) {
-      // Sử dụng Set để lọc ra các trạng thái duy nhất
       const uniqueStatuses = [...new Set(data.map((item) => item.status))]
 
       labels = uniqueStatuses

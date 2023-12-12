@@ -14,7 +14,6 @@ const commonSlice = createSlice({
   initialState,
   reducers: {
     openNotification: (state, action) => {
-      console.log(action.payload)
       state.notifi.open = true
       state.notifi.message = action.payload
     },

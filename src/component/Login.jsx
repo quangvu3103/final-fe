@@ -18,7 +18,7 @@ import {
   LinearProgress,
 } from '@mui/material'
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
-import { login } from '../redux/auth/authThunk'
+import { login, loginGoogle } from '../redux/auth/authThunk'
 import { useState } from 'react'
 
 export function Login() {
@@ -84,6 +84,14 @@ export function Login() {
       return { ...preV, password: e.target.value }
     })
   }
+  const handleSuccessLogin = async(res) =>{
+    const token = await res.credential
+    dispatch(loginGoogle({token: token}))
+    console.log(token)
+  }
+  const handleErrorLogin = (error) => {
+    console.log(error)
+  };
 
   return (
     <>
@@ -138,11 +146,11 @@ export function Login() {
         <Box>
           <List sx={{ display: 'grid' }}>
             <div style={{ marginBottom: '10px', width: '100%' }}>
-              <GoogleOAuthProvider clientId="639903958485-8igklr57gr0mtk7n21ioc0vtis98srdu.apps.googleusercontent.com">
+              <GoogleOAuthProvider clientId="158445647177-4tjrglh879mk4iap37ch2qh8idc0sfs0.apps.googleusercontent.com">
                 <GoogleLogin
-                  // onSuccess={handleSuccessLogin}
-                  // onError={handleErrorLogin}
-                  // style={{ marginTop: '100px' }}
+                  onSuccess={handleSuccessLogin}
+                  onError={handleErrorLogin}
+                  style={{ marginTop: '100px' }}
 
                   className=""
                   cookiePolicy={'single_host_origin'}

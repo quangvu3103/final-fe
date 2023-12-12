@@ -39,19 +39,19 @@ const Footer = () => {
             <h2 className="text-2xl font-bold text-teal-500">MELON PET SHOP</h2>
           </li>
           <li className="mt-3">
-            <a className="text-lg cursor-pointer text-teal-500">asdasdasdad</a>
+            <a className="text-lg cursor-pointer text-teal-500">Introduce</a>
           </li>
           <li className="mt-3">
-            <a className="text-lg cursor-pointer text-teal-500">asdasdasd</a>
+            <a className="text-lg cursor-pointer text-teal-500">Terms of use</a>
           </li>
           <li className="mt-3">
-            <a className="text-lg cursor-pointer text-teal-500">asdadasdas</a>
+            <a className="text-lg cursor-pointer text-teal-500">Shipping Method</a>
           </li>
         </ul>
       </div>
       <div>
-        <h2 className="text-2xl font-bold text-teal-500">09688232323</h2>
-        <p className="text-lg mt-3">80 Le duan</p>
+        <h2 className="text-2xl font-bold text-teal-500">0896652597</h2>
+        <p className="text-lg mt-3">33 Bui Xuan Phai</p>
         <div className="flex mt-3">
           <AiFillInstagram size={40} />
           <AiFillYoutube size={40} />

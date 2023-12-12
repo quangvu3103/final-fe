@@ -16,7 +16,6 @@ const Home = () => {
   const category = useSelector((state) => state.category.data)
   const [categoryId, setCategoryId] = useState(category.id)
   const product = useSelector((state) => state.product.data)
-
   useEffect(() => {
     dispatch(getAllCategory())
       .unwrap()
@@ -32,10 +31,10 @@ const Home = () => {
   }, [categoryId])
 
   let slides = [
-    'https://i.pinimg.com/originals/51/82/ac/5182ac536727d576c78a9320ac62de30.jpg',
-    'https://wallpapercave.com/wp/wp3386769.jpg',
-    'https://wallpaperaccess.com/full/809523.jpg',
-    'https://getwallpapers.com/wallpaper/full/5/c/0/606489.jpg',
+    'https://th.bing.com/th/id/R.cdbf670e6e80160075f9721309501ad6?rik=TFN4ujldlAkJkg&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fqkwoEmB.jpg&ehk=7T%2fZXliq65V6Ms0ifZ0%2bE0qf2bhmtXvGzwBOCwXPJtM%3d&risl=&pid=ImgRaw&r=0',
+    'https://images7.alphacoders.com/743/thumb-1920-743261.jpg',
+    'https://wallpapercave.com/wp/wp2432536.jpg',
+    'https://getwallpapers.com/wallpaper/full/1/d/5/984384-gorgerous-cat-and-dog-wallpaper-1920x1080.jpg',
   ]
 
   const handleChangeCategory = (id) => {
@@ -68,11 +67,11 @@ const Home = () => {
             <div className="relative ml-20 w-60 h-96 mr-20 border border-blue-200 flex flex-col justify-center items-center rounded hover:scale-110">
               <img
                 className=""
-                src="https://cdn-img-v2.webbnc.net/uploadv2/web/12/12107/product/2019/10/17/04/14/1571285687_thuc-an-meo-catsrang-400g-nhap-khau-han-quoc.jpg"
+                src={product?.[0]?.images?.[0]?.url}
                 alt=""
               />
-              <h3 class="mt-4 text-sm text-gray-700">Catsrsang</h3>
-              <p class="mt-1 text-lg font-medium text-gray-900">$35</p>
+              <h3 class="mt-4 text-sm text-gray-700">{product?.[0]?.name}</h3>
+              <p class="mt-1 text-lg font-medium text-gray-900">{product?.[0]?.price}</p>
             </div>
             <div class="grid grid-cols-4 gap-4 ">
               {product?.map((item) => {
@@ -90,9 +89,9 @@ const Home = () => {
                         src={item?.images?.[0]?.url}
                         alt={item?.name}
                       />
-                      <h3 class="mt-4 text-sm text-gray-700">{item.name}</h3>
+                      <p class="mt-4 text-sm text-gray-700">{item.name}</p>
                       <p class="mt-1 text-lg font-medium text-gray-900">
-                        ${item.price}
+                        {item.price} VND
                       </p>
                     </div>
                   </Link>
