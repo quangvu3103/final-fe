@@ -6,7 +6,7 @@ const initialState = {
   changePassword: false,
   resetPassword: false,
   notifi: { open: false, message: '' },
-  changePassword: false,
+
 }
 
 const commonSlice = createSlice({
@@ -16,6 +16,10 @@ const commonSlice = createSlice({
     openNotification: (state, action) => {
       state.notifi.open = true
       state.notifi.message = action.payload
+    },
+    closeNotification: (state, action) => {
+      state.notifi.open = false
+      state.notifi.message = ''
     },
     openChangePassword: (state, action) => {
       state.changePassword = true
@@ -46,6 +50,7 @@ const commonSlice = createSlice({
 })
 export const {
   openNotification,
+  closeNotification,
   openLogin,
   closeLogin,
   openRegister,

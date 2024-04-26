@@ -1,6 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import http from '../../service/axios_http'
 
+export const getProductByName = createAsyncThunk(
+  'product/search',
+  async (data, { rejectWithValue }) => {
+    try {
+      const reponse = await http.get(`/product/search?name=${data}`)
+      return reponse
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
 export const getAllProduct = createAsyncThunk(
   'product/getAllProduct',
   async (data, { rejectWithValue }) => {
@@ -88,12 +100,12 @@ export const uploadImage = createAsyncThunk(
 
 export const getDetailsProduct = createAsyncThunk(
   'product/getDetailsProduct',
-  async (data, { rejectWithValue }) => {
+  async (data, thunkApi) => {
     try {
       const reponse = await http.get(`/product/${data}`)
       return reponse
     } catch (error) {
-      return rejectWithValue(error)
+      return thunkApi.rejectWithValue(error)
     }
   },
 )

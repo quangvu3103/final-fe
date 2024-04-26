@@ -53,6 +53,20 @@ export const deleteOrderDetails = createAsyncThunk(
   },
 )
 
+export const updateOrderDetails = createAsyncThunk(
+  'order/updateOrderDetails',
+  async (data, { rejectWithValue }) => {
+    const { id, newQuantity } = data
+
+    try {
+      const response = await http.put(`/OrderDetail?id=${id}`, data)
+      return response
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
 export const updateOrder = createAsyncThunk(
   'order/updateOrder',
   async (data, { rejectWithValue }) => {
@@ -198,11 +212,6 @@ export const onApprove = createAsyncThunk(
           },
         },
       )
-
-      // const orderData = response.data;
-      // const name = orderData.payer.name.given_name;
-      // alert(`Transaction completed by ${name}`);
-
       return response
     } catch (error) {
       return rejectWithValue(error)

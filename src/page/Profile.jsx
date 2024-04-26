@@ -23,14 +23,151 @@ const Profile = () => {
     dispatch(openChangePassword())
   }
   const backgroundImageUrl =
-    'https://d1kpy9knucxk0h.cloudfront.net/wp2882348.jpg'
+    'https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2023/1/16/meo-viet-nam-3-16738793213361484673220.jpg'
 
+  console.log(orders)
   return (
     <>
-      <div className="">
-        <Navbar />
-      </div>
+      <Navbar />
       <ChangePassword />
+      <div className="flex flex-row container mx-auto bg-gray-50 ">
+        <div className="w-1/4 px-8 py-5 flex flex-col transform transition-opacity  duration-300 ease-in-out opacity-0 scale-50 animate-fadeScaleIn  ">
+          <div className="pt-14 pb-5">
+            <img
+              className="w-56 h-56 rounded-full"
+              src={profile.url}
+              alt=""
+            />
+          </div>
+          <div className="">
+            <h1 className="font-medium text-2xl mb-4">Nguyen Quang Vu</h1>
+            <p className="font-bold text-xl mb-4">University of Greenwich</p>
+            <Link to={`/updateProfile`} style={{ textDecoration: 'none' }}>
+              <Button
+                style={{
+                  color: 'blue',
+
+                  //   backgroundColor: '#A0E9FF',
+                }}
+              >
+                <strong> Update Profile</strong>
+              </Button>
+            </Link>
+            
+              <Button
+               onClick={()=>{handleOpenChangePassword()}}
+                style={{
+                  color: 'blue',
+                  // backgroundColor: '#A0E9FF',
+                }}
+              >
+                <strong> Change Password</strong>
+              </Button>
+          </div>
+          <div className="grid grid-cols-3  border-b-2 border-gray-500">
+            <div>
+              <h2 className="font-bold text-3xl">42</h2>
+              <p className=" text-gray-400">Collection</p>
+            </div>
+            <div>
+              <h2 className="font-bold text-3xl">1302</h2>
+              <p className=" text-gray-400">Follow</p>
+            </div>
+
+            <div>
+              <h2 className="font-bold text-3xl">18k</h2>
+              <p className=" text-gray-400">Like</p>
+            </div>
+          </div>
+
+          <ul className="flex flex-col">
+            <h1 className="text-3xl">Collection</h1>
+            <li className="text-xl">Team</li>
+            <li className="text-xl">Team</li>
+            <li className="text-xl">Team</li>
+            <li className="text-xl">Team</li>
+          </ul>
+        </div>
+
+        <div className="w-3/4 pt-6  transform transition-opacity duration-300 ease-in-out opacity-0 scale-50 animate-fadeScaleIn mb-20">
+          <div className="flex flex-col py-4  px-2">
+            <div className="relative">
+              <div className="rounded-3xl text-center overflow-hidden w-full  sm:w-full mx-auto">
+                <img
+                  className=" object-cover h-80  w-full "
+                  src="https://vuanem.com/blog/wp-content/uploads/2023/02/dat-ten-cho-cho-meo-hay-1125x750.jpg"
+                  alt="everest"
+                />
+              </div>
+              <div className="flex flex-col items-center justify-center gap-8 absolute top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2  ">
+                <h1 className=" text-6xl font-bold text-white">Profile</h1>
+                <button className="px-6 py-3 rounded-3xl bg-red-500 hover:bg-red-800">
+                  Featured Collection
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="w-2/3">
+              <div className="shadow-[0_0px_40px_0px_rgba(0,0,0,0.2)] rounded-2xl">
+                <div className="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal bg-white overflow-auto scroll-smooth max-h-96 rounded-xl scrollbar-thin  scrollbar-thumb-gray-500">
+                  {orders.map((order) => (
+                    <Link
+                      to={`/orderDetails/${order.id}`}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <div
+                        role="button"
+                        className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                      >
+                        <div className="grid mr-4 place-items-center">
+                          <img
+                            alt="candice"
+                             src={profile.url}
+                            className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
+                          />
+                        </div>
+                        <div>
+                          <h6 class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+                            {order.dateOrder} | {order.status}
+                          </h6>
+                          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-700">
+                            {order.totalPrice} VND
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="w-1/3 flex flex-col  px-6">
+              <h2 className="font-bold text-sm text-gray-500 pb-2">
+                Biography
+              </h2>
+              <p className="text-base text-gray-400 pb-4">
+                Information, ndfjaihfiduahfiuahfiuad Information,
+                ndfjaihfiduahfiuahfiuadInformation,
+                ndfjaihfiduahfiuahfiuadInformation,
+                ndfjaihfiduahfiuahfiuadInformation,
+                ndfjaihfiduahfiuahfiuadInformation, ndfjaihfiduahfiuahfiuad
+              </p>
+              <h2 className="font-bold text-sm text-gray-500">Website</h2>
+              <a href=""></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </>
+  )
+}
+
+export default Profile
+
+{
+  /* <ChangePassword />
       <Box
         style={{
           backgroundImage: `url(${backgroundImageUrl})`,
@@ -126,7 +263,7 @@ const Profile = () => {
                 <Button
                   onClick={handleOpenChangePassword}
                   style={{
-                    color: 'white',
+                    color: 'blue',
                     // backgroundColor: '#A0E9FF',
                   }}
                 >
@@ -147,7 +284,7 @@ const Profile = () => {
                 </Box>
                 <Box className="mb-2 text-blueGray-600">
                   <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                  University of Computer Science
+                  University of Greenwich
                 </Box>
               </Box>
               <Box className="mt-10 py-10 border-t border-blueGray-200 text-center">
@@ -168,11 +305,5 @@ const Profile = () => {
             </Box>
           </Box>
         </Box>
-      </Box>
-
-      <Footer />
-    </>
-  )
+      </Box> */
 }
-
-export default Profile

@@ -24,7 +24,7 @@ const categorySllice = createSlice({
       })
       .addCase(getAllCategory.fulfilled, (state, action) => {
         state.loading = false
-        state.data = action.payload
+        state.data = action.payload // dữ liệu được trả về từ BE gán vào data
       })
       .addCase(getAllCategory.rejected, (state, action) => {
         state.loading = false

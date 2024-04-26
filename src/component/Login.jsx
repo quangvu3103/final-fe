@@ -14,8 +14,6 @@ import {
   TextField,
   Box,
   List,
-  FormHelperText,
-  LinearProgress,
 } from '@mui/material'
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import { login, loginGoogle } from '../redux/auth/authThunk'
@@ -27,27 +25,6 @@ export function Login() {
     email: '',
     password: '',
   })
-
-  // const handleSuccessLogin = (response) => {
-  //   const token = response.credential
-  //   const { isValid, error } = decodeTokenAndCheckExpiration(token)
-
-  //   if (isValid) {
-  //     localStorage.setItem('tokenGoogle', token)
-
-  //     dispatch(
-  //       loginByGoogleAccountAction({
-  //         token: token,
-  //       }),
-  //     )
-  //   } else {
-  //     dispatch(showSnackbar(error))
-  //   }
-  // }
-
-  // const handleErrorLogin = (error) => {
-  //   dispatch(showSnackbar(error))
-  // }
 
   const isOpenLogin = useSelector((state) => state.common.login)
   const error = useSelector((state) => state.auth.error)

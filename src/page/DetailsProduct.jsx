@@ -6,11 +6,16 @@ import { useParams } from 'react-router-dom'
 import { deleteProduct, getDetailsProduct } from '../redux/product/productThunk'
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder } from '../redux/order/orderThunk'
+import { useNavigate } from 'react-router-dom'
 
 const DetailsProduct = () => {
   const { id } = useParams()
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  // const navigate =
+  // const navigate = useNavigate
+  const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
     dispatch(getDetailsProduct(id))
@@ -19,9 +24,13 @@ const DetailsProduct = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const loading = useSelector((state) => state.product.loading)
   const role = useSelector((state) => state.auth.role)
+  const handleQuantity = (e) => {
+    const newQuantity = parseInt(e.target.value)
+    console.log(newQuantity)
+    setQuantity(newQuantity)
+  }
 
   useEffect(() => {
-    console.log('Product:', product)
     if (product?.images) {
       setImages(product.images)
     }
@@ -43,7 +52,7 @@ const DetailsProduct = () => {
       dispatch(
         createOrder({
           totalPrice: product.price,
-          quantity: 1,
+          quantity: quantity,
           productId: product.id,
         }),
       )
@@ -53,28 +62,152 @@ const DetailsProduct = () => {
   const handleDeleteProduct = (event, reason) => {
     try {
       dispatch(deleteProduct(product.id))
+        .unwrap()
+        .then((res) => {
+          navigate('/')
+        })
+      // navigate('')
     } catch {}
   }
   return (
     <>
       <Navbar />
-      <Box>
+      <div className="flex flex-row px-20 py-20 ">
+        <div className="relative w-1/3">
+          <button
+            onClick={prevImage}
+            type="button"
+            class="absolute top-0 -left-3 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+            data-carousel-prev
+          >
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+              <svg
+                class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M5 1 1 5l4 4"
+                />
+              </svg>
+              <span class="sr-only">Previous</span>
+            </span>
+          </button>
+
+          <div className="">
+            <img
+              className="w-full h-full"
+              src={images[currentImageIndex]?.url}
+              alt=""
+            />
+          </div>
+
+          <button
+            onClick={nextImage}
+            type="button"
+            class="absolute top-0 -right-3 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+            data-carousel-next
+          >
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+              <svg
+                class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+              <span class="sr-only">Next</span>
+            </span>
+          </button>
+        </div>
+        <div className="w-2/3 flex flex-col justify-center gap-4 pl-10">
+          <h1 className="font-extrabold text-3xl">{product?.name}</h1>
+          <p>{product?.description}</p>
+          <h2 className="font-bold text-xl">{product?.price}</h2>
+
+          {role === 'User' ? (
+            <>
+              {' '}
+              <Box className="flex py-4 space-x-4">
+                <Box className="relative">
+                  <Box className="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">
+                    <h2>Choose quantity:</h2>
+                  </Box>
+                </Box>
+
+                <div data-mdb-input-init class="form-outline">
+                  <input
+                    type="number"
+                    value={quantity}
+                    onChange={handleQuantity}
+                    id="typeNumber"
+                    class="form-control"
+                  />
+                </div>
+                <button
+                  className="bg-[#00B4FF] w-1/4 py-2 rounded-lg shadow-xl"
+                  onClick={handleCreateOrder}
+                >
+                  Add to Cart
+                </button>
+              </Box>
+            </>
+          ) : (
+            <>
+              {' '}
+              <Box className="flex py-4 space-x-4">
+                <button
+                  href={'/updateProduct/' + product.id}
+                  className="lg:inline-block lg:mt-0 bg-blue-500 hover:bg-blue-600 text-white mr-4 px-6 py-2 rounded-xl"
+                >
+                  Update Product
+                </button>
+                <button
+                  onClick={handleDeleteProduct}
+                  type="button"
+                  className="h-14 px-6 py-2 font-semibold rounded-xl bg-red-500 hover:bg-red-600 text-white"
+                >
+                  Delete Product
+                </button>
+              </Box>
+            </>
+          )}
+        </div>
+      </div>
+      {/* <Box>
         {!loading && (
           <>
             <body className="antialiased">
-              <Box className="py-6">
+              <Box className="py-6 h-screen">
                 <Box className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"></Box>
 
-                <Box className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+                <Box className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 pt-20">
                   <Box className="flex flex-col md:flex-row items-center mt-4">
-                    <Box className="relative h-56 overflow-hidden rounded-lg md:h-96">
+                    <Box className="relative w-[40%] h-56 overflow-hidden rounded-lg md:h-96">
                       {images.length > 0 && (
-                        <img
-                          id="main-image"
-                          src={images[currentImageIndex]?.url}
-                          width="500"
-                          alt=""
-                        />
+                        <div className="w-full object-fill">
+                          <img
+                            // id="main-image"
+                            className="w-full h-96 object-cover"
+                            src={images[currentImageIndex]?.url}
+                            width="500"
+                            alt=""
+                          />
+                        </div>
                       )}
                       <Box className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-between ">
                         <Button variant="contained" onClick={prevImage}>
@@ -99,11 +232,12 @@ const DetailsProduct = () => {
                       <Box className="flex items-center space-x-4 my-4">
                         <Box>
                           <Box className="rounded-lg bg-gray-100 flex py-2 px-3">
-                           
                             <span className="font-bold text-indigo-600 text-3xl">
                               {product.price}
                             </span>
-                            <span className="text-indigo-400 mr-1 mt-1">VND</span>
+                            <span className="text-indigo-400 mr-1 mt-1">
+                              VND
+                            </span>
                           </Box>
                         </Box>
                         <Box className="flex-1">
@@ -141,9 +275,9 @@ const DetailsProduct = () => {
                                 stroke="currentColor"
                               >
                                 <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
                                   d="M8 9l4-4 4 4m0 6l-4 4-4-4"
                                 />
                               </svg>
@@ -185,7 +319,7 @@ const DetailsProduct = () => {
             </body>
           </>
         )}
-      </Box>
+      </Box> */}
       <Footer />
     </>
   )

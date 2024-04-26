@@ -3,12 +3,12 @@ import http from '../../service/axios_http'
 
 export const getNotification = createAsyncThunk(
   'notification/getNotification',
-  async (data, { rejectWithValue }) => {
+  async (data, thunkAPI) => {
     try {
       const response = await http.get('/notification')
       return response
     } catch (error) {
-      return rejectWithValue(error)
+      return thunkAPI.rejectWithValue(error)
     }
   },
 )

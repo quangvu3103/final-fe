@@ -1,4 +1,11 @@
-import { changePassword, login, loginGoogle, register, resetPassword } from './authThunk'
+import {
+  changePassword,
+  login,
+  loginGoogle,
+  register,
+  resetPassword,
+  sendFeedback,
+} from './authThunk'
 import DecodeTokenAndCheck from '../../service/DecodeTokenAndCheck'
 import { jwtDecode } from 'jwt-decode'
 
@@ -9,12 +16,13 @@ let isLoggedIn = ''
 
 if (localStorage.getItem('token')) {
   const token = localStorage.getItem('token')
-  isLoggedIn = DecodeTokenAndCheck(token)
-  userSignedIn = jwtDecode(token)
+  isLoggedIn = DecodeTokenAndCheck(token) // để check xem hết hạn hay chưa
+  userSignedIn = jwtDecode(token) // chứa thông tin của token
 }
+// khi chạy app sẽ check token để kiểm tra xem login chưa
 
 const initialState = {
-  isLoggedIn: isLoggedIn.isValid,
+  isLoggedIn: isLoggedIn.isValid, // check xem đã login hay chưa
   userName: userSignedIn.email,
   userId: userSignedIn.id,
   role: userSignedIn.role,
@@ -91,6 +99,18 @@ const authSlice = createSlice({
         state.message = 'Change password successfully'
       })
       .addCase(changePassword.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(sendFeedback.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(sendFeedback.fulfilled, (state, action) => {
+        state.loading = false
+        state.error = []
+        state.message = 'Change password successfully'
+      })
+      .addCase(sendFeedback.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

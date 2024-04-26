@@ -3,6 +3,7 @@ import {
   getAllProduct,
   getDetailsProduct,
   getProductByCategoryId,
+  getProductByName,
   onHandleCreateProduct,
   updateProduct,
   uploadImage,
@@ -13,6 +14,7 @@ const { createSlice } = require('@reduxjs/toolkit')
 
 const initialState = {
   data: [],
+  dataSearch: [],
   loading: false,
   product: {},
   error: [],
@@ -36,7 +38,17 @@ const productSllice = createSlice({
         state.loading = false
         state.error = action.payload
       })
-
+      .addCase(getProductByName.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(getProductByName.fulfilled, (state, action) => {
+        state.loading = false
+        state.dataSearch = action.payload
+      })
+      .addCase(getProductByName.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
       .addCase(getProductByCategoryId.pending, (state, action) => {
         state.loading = true
       })

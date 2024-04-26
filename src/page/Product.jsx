@@ -8,6 +8,7 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllCategory } from '../redux/category/categoryThunk'
 import { getProductByCategoryId } from '../redux/product/productThunk'
+import LogosDisplay from '../layout/logo/Logo'
 
 const filters = [
   {
@@ -49,13 +50,6 @@ export default function Product() {
       dispatch(getProductByCategoryId({ id: categoryId }))
     }
   }, [categoryId])
-
-  let slides = [
-    'https://i.pinimg.com/originals/51/82/ac/5182ac536727d576c78a9320ac62de30.jpg',
-    'https://wallpapercave.com/wp/wp3386769.jpg',
-    'https://wallpaperaccess.com/full/809523.jpg',
-    'https://getwallpapers.com/wallpaper/full/5/c/0/606489.jpg',
-  ]
 
   const handleChangeCategory = (id) => {
     setCategoryId(id)
@@ -147,9 +141,7 @@ export default function Product() {
                 ))}
               </form>
 
-              {/* Product grid */}
               <div className="lg:col-span-3">
-                {/* Your content */}
                 <h1 className="mb-5 font-bold text-2xl   ">Product</h1>
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                   {products.map((product) => (
@@ -161,7 +153,7 @@ export default function Product() {
                         <img
                           src={product.images[0].url}
                           alt={product.name}
-                          className="h-full w-full object-cover object-center group-hover:opacity-75"
+                          className="h-40 w-full object-cover object-center group-hover:opacity-75"
                         />
                       </div>
                       <h3 className="mt-4 text-sm text-gray-700">
@@ -178,6 +170,7 @@ export default function Product() {
           </section>
         </main>
       </div>
+      <LogosDisplay />
       <Footer />
     </div>
   )

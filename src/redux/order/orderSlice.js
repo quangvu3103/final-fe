@@ -10,6 +10,7 @@ import {
   onApprove,
   onApproveOnPaypal,
   updateOrder,
+  updateOrderDetails,
 } from './orderThunk'
 const { createSlice } = require('@reduxjs/toolkit')
 
@@ -138,13 +139,40 @@ const orderSlice = createSlice({
       .addCase(deleteOrderDetails.fulfilled, (state, action) => {
         state.loading = false
         const orderDetailIdToDelete = action.payload.id
-
         state.cart.orderDetails = state.cart.orderDetails.filter(
           (orderDetail) => orderDetail.id !== orderDetailIdToDelete,
         )
+        for (let i = 0; i < state.cart.length; i++) {
+          const order = state.cart[i]
+          const index = order.orderDetails.findIndex(
+            (detail) => detail.id === orderDetailIdToDelete,
+          )
+          if (index !== -1) {
+            state.cart[i].orderDetails.splice(index, 1)
+
+            const totalPrice = state.cart[i].orderDetails.reduce(
+              (acc, detail) => acc + detail.price,
+              0,
+            )
+            state.cart[i].totalPrice = totalPrice
+
+            break
+          }
+        }
+      })
+      .addCase(deleteOrderDetails.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(updateOrderDetails.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(updateOrderDetails.fulfilled, (state, action) => {
+        state.loading = false
+        state.cart = action.payload
       })
 
-      .addCase(deleteOrderDetails.rejected, (state, action) => {
+      .addCase(updateOrderDetails.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

@@ -59,3 +59,15 @@ export const changePassword = createAsyncThunk(
     }
   },
 )
+
+export const sendFeedback = createAsyncThunk(
+  'auth/sendFeedback',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await http.post('/auth/sendFeedback', data)
+      return response
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)

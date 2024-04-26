@@ -30,6 +30,8 @@ const Home = () => {
     }
   }, [categoryId])
 
+  const products = product.slice(0, 4)
+
   let slides = [
     'https://th.bing.com/th/id/R.cdbf670e6e80160075f9721309501ad6?rik=TFN4ujldlAkJkg&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fqkwoEmB.jpg&ehk=7T%2fZXliq65V6Ms0ifZ0%2bE0qf2bhmtXvGzwBOCwXPJtM%3d&risl=&pid=ImgRaw&r=0',
     'https://images7.alphacoders.com/743/thumb-1920-743261.jpg',
@@ -51,8 +53,8 @@ const Home = () => {
         <div className="w-[100%] m-auto  ">
           <Carousel slides={slides} />
         </div>
-        <div className="m-10">
-          <div className="flex flex-row">
+        <div className="m-10 ">
+          <div className="flex flex-row ">
             {category?.map((item) => (
               <button
                 key={item?.id}
@@ -63,36 +65,40 @@ const Home = () => {
               </button>
             ))}
           </div>
-          <div className="flex m-10">
-            <div className="relative ml-20 w-60 h-96 mr-20 border border-blue-200 flex flex-col justify-center items-center rounded hover:scale-110">
-              <img
-                className=""
-                src={product?.[0]?.images?.[0]?.url}
-                alt=""
-              />
-              <h3 class="mt-4 text-sm text-gray-700">{product?.[0]?.name}</h3>
-              <p class="mt-1 text-lg font-medium text-gray-900">{product?.[0]?.price}</p>
+          <div className="flex flex-col m-10 ">
+            <div className="pb-6">
+              <h1 className="text-center font-extrabold text-4xl text-[#005091]">
+                Product
+              </h1>
             </div>
-            <div class="grid grid-cols-4 gap-4 ">
-              {product?.map((item) => {
+            <div class="grid grid-cols-4 grid-rows-1 gap-4 w-full ">
+              {products?.map((item) => {
                 return (
                   <Link
                     to={`/detailsProduct/${item.id}`}
                     style={{ textDecoration: 'none' }}
                   >
                     <div
-                      className=" w-48 h-56 border border-blue-200 flex flex-col justify-center items-center rounded hover:scale-105"
+                      className="w-full h-full  flex flex-col justify-center items-center rounded  gap-4"
                       key={item?.id}
                     >
-                      <img
-                        className="h-[60%] w-[60%] hover:scale-105 "
-                        src={item?.images?.[0]?.url}
-                        alt={item?.name}
-                      />
-                      <p class="mt-4 text-sm text-gray-700">{item.name}</p>
+                      <div className="h-1/2 overflow-hidden">
+                        <img
+                          className="object-contain aspect-[4/5] max-h-[100%] max-w-[100%] hover:scale-105 mb-6 "
+                          src={item?.images?.[0]?.url}
+                          alt={item?.name}
+                        />
+                      </div>
+                      {/* <p class="mt-4 text-sm text-gray-700">{item.name}</p>
                       <p class="mt-1 text-lg font-medium text-gray-900">
-                        {item.price} VND
-                      </p>
+                      {item.price} VND
+                    </p> */}
+                      <div className="flex flex-col bg-[#005091] w-full h-1/4 rounded-b-xl p-6">
+                        <h1 className="text-white font-bold text-xl">
+                          {item?.name}{' '}
+                        </h1>
+                        <p className="text-white">{item?.price} </p>
+                      </div>
                     </div>
                   </Link>
                 )
