@@ -19,7 +19,7 @@ const Cart = () => {
   }, [])
 
   const handleDeleteOrderDetail = async (id) => {
-    dispatch(deleteOrderDetails(id))
+   await dispatch(deleteOrderDetails(id))
   }
   const handleIncreaseQuantity = async (id, quantity) => {
     dispatch(updateOrderDetails({ id: id, quantity: quantity + 1 }))
@@ -41,7 +41,7 @@ const Cart = () => {
               <div class=" bg-gray-100 pt-20 ">
                 <h1 class="mb-10 text-center text-2xl font-bold">Cart Items</h1>
                 <div class="mx-auto w-[90%] justify-between px-6 flex ">
-                  <div class="rounded-lg w-full mx-auto flex ">
+                  <div class="rounded-lg w-full mx-auto px-4">
                     {' '}
                     {cart?.orderDetails?.map((item) => {
                       return (
@@ -114,6 +114,7 @@ const Cart = () => {
                         </div>
                       )
                     })}
+                  </div>{' '}
                     <div class="mt-6 h-full mx-2 rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
                       <div class="mb-2 flex justify-between">
                         <p class="text-gray-700">Subtotal</p>
@@ -138,7 +139,6 @@ const Cart = () => {
                         </button>
                       </Link>
                     </div>
-                  </div>{' '}
                 </div>
               </div>
             </>

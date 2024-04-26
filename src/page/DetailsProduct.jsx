@@ -144,8 +144,8 @@ const DetailsProduct = () => {
               {' '}
               <Box className="flex py-4 space-x-4">
                 <Box className="relative">
-                  <Box className="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">
-                    <h2>Choose quantity:</h2>
+                  <Box className="text-center  left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">
+                    <h2 >Choose quantity:</h2>
                   </Box>
                 </Box>
 
@@ -155,27 +155,30 @@ const DetailsProduct = () => {
                     value={quantity}
                     onChange={handleQuantity}
                     id="typeNumber"
-                    class="form-control"
+                    class="form-control w-[10%] ml-28 mt-2"
                   />
-                </div>
+                <div className='w-full block mt-20'>
+
                 <button
-                  className="bg-[#00B4FF] w-1/4 py-2 rounded-lg shadow-xl"
+                  className="bg-[#00B4FF] w-[50%] py-4 rounded-lg shadow-xl"
                   onClick={handleCreateOrder}
-                >
+                  >
                   Add to Cart
                 </button>
+                  </div>
+                </div>
               </Box>
             </>
           ) : (
             <>
               {' '}
               <Box className="flex py-4 space-x-4">
-                <button
-                  href={'/updateProduct/' + product.id}
-                  className="lg:inline-block lg:mt-0 bg-blue-500 hover:bg-blue-600 text-white mr-4 px-6 py-2 rounded-xl"
+                <a
+                  href={`/updateProduct/${product.id}`}
+                  className="lg:inline-block lg:mt-0 font-semibold bg-blue-500 hover:bg-blue-600 text-white mr-4 px-6 py-4 rounded-xl"
                 >
                   Update Product
-                </button>
+                </a>
                 <button
                   onClick={handleDeleteProduct}
                   type="button"
