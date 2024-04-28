@@ -17,6 +17,30 @@ export const createOrder = createAsyncThunk(
   },
 )
 
+export const getRevenueByMonth = createAsyncThunk(
+  'order/search',
+  async (_, { rejectWithValue }) => {
+    try {
+      const reponse = await http.get(`/order/revenue-by-month`)
+      return reponse
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
+export const getTotalCountByMonth = createAsyncThunk(
+  'order/getTotalCountByMonth',
+  async (_, { rejectWithValue }) => {
+    try {
+      const reponse = await http.get(`/order/revenue-count-by-month`)
+      return reponse
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
 export const getOrder = createAsyncThunk(
   'order/getOrder',
   async (data, { rejectWithValue }) => {

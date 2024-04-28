@@ -28,9 +28,9 @@ export const getAllProduct = createAsyncThunk(
 export const getProductByCategoryId = createAsyncThunk(
   'product/getProductByCategoryId',
   async (data, { rejectWithValue }) => {
-    const { id } = data
+    const { id, minPrice, maxPrice } = data
     try {
-      const reponse = await http.get(`/product/category/${id}`)
+      const reponse = await http.get(`/product/category/${id}?minPice=${minPrice}&maxPrice=${maxPrice}`)
       return reponse
     } catch (error) {
       return rejectWithValue(error)

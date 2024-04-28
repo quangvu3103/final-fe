@@ -28,6 +28,8 @@ const Profile = () => {
   console.log(orders)
   return (
     <>
+    <div className=''>
+
       <Navbar />
       <ChangePassword />
       <div className="flex flex-row container mx-auto bg-gray-50 ">
@@ -37,56 +39,32 @@ const Profile = () => {
               className="w-56 h-56 rounded-full"
               src={profile.url}
               alt=""
-            />
+              />
           </div>
           <div className="">
             <h1 className="font-medium text-2xl mb-4">Nguyen Quang Vu</h1>
             <p className="font-bold text-xl mb-4">University of Greenwich</p>
+            <div className=' flex flex-row gap-4  '>
             <Link to={`/updateProfile`} style={{ textDecoration: 'none' }}>
-              <Button
-                style={{
-                  color: 'blue',
-
-                  //   backgroundColor: '#A0E9FF',
-                }}
+              <button
+              className=" bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-500 text-base font-semibold"
+              
               >
-                <strong> Update Profile</strong>
-              </Button>
+                Update Profile
+              </button>
             </Link>
             
-              <Button
+              <button
                onClick={()=>{handleOpenChangePassword()}}
-                style={{
-                  color: 'blue',
-                  // backgroundColor: '#A0E9FF',
-                }}
-              >
-                <strong> Change Password</strong>
-              </Button>
+               className=" bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-500 w-1/2 text-base font-semibold"
+               >
+                 Change Password
+              </button>
+                </div>
           </div>
-          <div className="grid grid-cols-3  border-b-2 border-gray-500">
-            <div>
-              <h2 className="font-bold text-3xl">42</h2>
-              <p className=" text-gray-400">Collection</p>
-            </div>
-            <div>
-              <h2 className="font-bold text-3xl">1302</h2>
-              <p className=" text-gray-400">Follow</p>
-            </div>
+    
 
-            <div>
-              <h2 className="font-bold text-3xl">18k</h2>
-              <p className=" text-gray-400">Like</p>
-            </div>
-          </div>
-
-          <ul className="flex flex-col">
-            <h1 className="text-3xl">Collection</h1>
-            <li className="text-xl">Team</li>
-            <li className="text-xl">Team</li>
-            <li className="text-xl">Team</li>
-            <li className="text-xl">Team</li>
-          </ul>
+         
         </div>
 
         <div className="w-3/4 pt-6  transform transition-opacity duration-300 ease-in-out opacity-0 scale-50 animate-fadeScaleIn mb-20">
@@ -97,7 +75,7 @@ const Profile = () => {
                   className=" object-cover h-80  w-full "
                   src="https://vuanem.com/blog/wp-content/uploads/2023/02/dat-ten-cho-cho-meo-hay-1125x750.jpg"
                   alt="everest"
-                />
+                  />
               </div>
               <div className="flex flex-col items-center justify-center gap-8 absolute top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2  ">
                 <h1 className=" text-6xl font-bold text-white">Profile</h1>
@@ -113,17 +91,17 @@ const Profile = () => {
                 <div className="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal bg-white overflow-auto scroll-smooth max-h-96 rounded-xl scrollbar-thin  scrollbar-thumb-gray-500">
                   {orders.map((order) => (
                     <Link
-                      to={`/orderDetails/${order.id}`}
-                      style={{ textDecoration: 'none' }}
+                    to={`/orderDetails/${order.id}`}
+                    style={{ textDecoration: 'none' }}
                     >
                       <div
                         role="button"
                         className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-                      >
+                        >
                         <div className="grid mr-4 place-items-center">
                           <img
                             alt="candice"
-                             src={profile.url}
+                            src={profile.url}
                             className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
                           />
                         </div>
@@ -146,11 +124,7 @@ const Profile = () => {
                 Biography
               </h2>
               <p className="text-base text-gray-400 pb-4">
-                Information, ndfjaihfiduahfiuahfiuad Information,
-                ndfjaihfiduahfiuahfiuadInformation,
-                ndfjaihfiduahfiuahfiuadInformation,
-                ndfjaihfiduahfiuahfiuadInformation,
-                ndfjaihfiduahfiuahfiuadInformation, ndfjaihfiduahfiuahfiuad
+              {profile.description}
               </p>
               <h2 className="font-bold text-sm text-gray-500">Website</h2>
               <a href=""></a>
@@ -160,6 +134,7 @@ const Profile = () => {
       </div>
 
       <Footer />
+</div>
     </>
   )
 }

@@ -19,6 +19,7 @@ const initialState = {
   product: {},
   error: [],
   message: '',
+
 }
 
 const productSllice = createSlice({
@@ -38,6 +39,7 @@ const productSllice = createSlice({
         state.loading = false
         state.error = action.payload
       })
+
       .addCase(getProductByName.pending, (state, action) => {
         state.loading = true
       })
@@ -76,6 +78,7 @@ const productSllice = createSlice({
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.loading = false
+        state.message = 'Update Product Success'
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.loading = false

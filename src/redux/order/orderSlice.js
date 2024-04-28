@@ -7,6 +7,8 @@ import {
   getOrder,
   getOrderById,
   getOrderByUserId,
+  getRevenueByMonth,
+  getTotalCountByMonth,
   onApprove,
   onApproveOnPaypal,
   updateOrder,
@@ -21,6 +23,8 @@ const initialState = {
   loading: false,
   error: [],
   message: '',
+  revenueByMonth: [],
+  countByMonth: [],
 }
 
 const orderSlice = createSlice({
@@ -41,6 +45,31 @@ const orderSlice = createSlice({
         state.loading = false
         state.error = action.payload
       })
+      
+      .addCase(getRevenueByMonth.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(getRevenueByMonth.fulfilled, (state, action) => {
+        state.loading = false
+        state.revenueByMonth = action.payload
+      })
+      .addCase(getRevenueByMonth.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
+      .addCase(getTotalCountByMonth.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(getTotalCountByMonth.fulfilled, (state, action) => {
+        state.loading = false
+        state.countByMonth = action.payload
+      })
+      .addCase(getTotalCountByMonth.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
       .addCase(getOrderByUserId.pending, (state, action) => {
         state.loading = true
       })

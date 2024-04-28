@@ -20,13 +20,13 @@ const DetailsProduct = () => {
   useEffect(() => {
     dispatch(getDetailsProduct(id))
   }, [])
-  const product = useSelector((state) => state.product.product)
+  const {product} = useSelector((state) => state.product)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const loading = useSelector((state) => state.product.loading)
   const role = useSelector((state) => state.auth.role)
+  console.log(product)
   const handleQuantity = (e) => {
     const newQuantity = parseInt(e.target.value)
-    console.log(newQuantity)
     setQuantity(newQuantity)
   }
 
@@ -47,13 +47,13 @@ const DetailsProduct = () => {
     )
   }
 
-  const handleCreateOrder = (event, reason) => {
+  const handleCreateOrder = () => {
     try {
       dispatch(
         createOrder({
-          totalPrice: product.price,
+          totalPrice: product?.price,
           quantity: quantity,
-          productId: product.id,
+          productId: product?.id,
         }),
       )
     } catch {}
@@ -161,7 +161,7 @@ const DetailsProduct = () => {
 
                 <button
                   className="bg-[#00B4FF] w-[50%] py-4 rounded-lg shadow-xl"
-                  onClick={handleCreateOrder}
+                  onClick={()=>(handleCreateOrder())}
                   >
                   Add to Cart
                 </button>

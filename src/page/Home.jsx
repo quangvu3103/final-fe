@@ -26,7 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     if (categoryId) {
-      dispatch(getProductByCategoryId({ id: categoryId }))
+      dispatch(getProductByCategoryId({ id: categoryId, minPrice: 1, maxPrice: 10000000 }))
     }
   }, [categoryId])
 

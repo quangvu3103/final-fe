@@ -36,7 +36,28 @@ export default function Product() {
   const category = useSelector((state) => state.category.data)
   const [categoryId, setCategoryId] = useState(category.id)
   const products = useSelector((state) => state.product.data)
+  // const [minPrice, setMinpr]
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 10000000 });
+  const handlePriceRangeChange = (event, optionValue) => {
+    const { value } = event.target;
+    const [min, max] = value.split(" VND - ");
+    const maxNumber = parseInt(max.replace(" VND", "").trim());
 
+
+    if (selectedOption === optionValue) {
+        setSelectedOption(null);
+        setPriceRange({ min: 0, max: 10000000 });
+    } else {
+        setSelectedOption(optionValue); 
+        setPriceRange({
+            min: parseInt(min), 
+            max: maxNumber 
+        });
+    }
+};
+
+console.log(priceRange)
   useEffect(() => {
     dispatch(getAllCategory())
       .unwrap()
@@ -47,9 +68,9 @@ export default function Product() {
 
   useEffect(() => {
     if (categoryId) {
-      dispatch(getProductByCategoryId({ id: categoryId }))
+      dispatch(getProductByCategoryId({ id: categoryId, minPrice: priceRange.min, maxPrice: priceRange.max }))
     }
-  }, [categoryId])
+  }, [categoryId, priceRange])
 
   const handleChangeCategory = (id) => {
     setCategoryId(id)
@@ -112,27 +133,31 @@ export default function Product() {
                         </h3>
                         <Disclosure.Panel className="pt-6">
                           <div className="space-y-4">
-                            {section.options.map((option, optionIdx) => (
-                              <div
-                                key={option.value}
-                                className="flex items-center"
-                              >
-                                <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  defaultChecked={option.checked}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-600"
+                              {section.options.map((option, optionIdx) => (
+                                <div
+                                  key={option.value}
+                                  className="flex items-center"
+
                                 >
-                                  {option.label}
-                                </label>
-                              </div>
-                            ))}
+                                  <input
+                                    id={`filter-${section.id}-${optionIdx}`}
+                                    name={`${section.id}[]`}
+                                    defaultValue={option.value}
+                                    type="checkbox"
+                                    defaultChecked={option.checked}
+                                    value={option.label}
+                                    onChange={(event) => handlePriceRangeChange(event, option.value)}
+                                    checked={selectedOption === option.value}
+                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  />
+                                  <label
+                                    htmlFor={`filter-${section.id}-${optionIdx}`}
+                                    className="ml-3 text-sm text-gray-600"
+                                  >
+                                    {option.label}
+                                  </label>
+                                </div>
+                              ))}
                           </div>
                         </Disclosure.Panel>
                       </>

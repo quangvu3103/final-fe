@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../layout/navbar/navbar'
 import Footer from '../layout/footer/Footer'
 import { Box, Button, TextField } from '@mui/material'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getAllCategory } from '../redux/category/categoryThunk'
 import { useParams } from 'react-router-dom'
 import { getDetailsProduct, updateProduct } from '../redux/product/productThunk'
+import CircularProgress from '@mui/material/CircularProgress'
+
 
 const UpdateProduct = () => {
   const dispatch = useDispatch()
@@ -58,11 +60,15 @@ const UpdateProduct = () => {
     })
   }
   const handleUpdateProduct = async (value) => {
-    alert(product.name + product.quantity + product.price + product.description)
+    // alert(product.name + product.quantity + product.price + product.description)
     product.quantity = parseInt(product.quantity)
     product.price = parseInt(product.price)
     await dispatch(updateProduct({ id: id, product: product })).unwrap()
   }
+
+  const message = useSelector((state) => state.product.message)
+  const loading = useSelector((state) => state.product.loading)
+
   useEffect(() => {
     dispatch(getAllCategory())
   }, [])
@@ -143,7 +149,18 @@ const UpdateProduct = () => {
                 />
               </Box>
             </Box>
-            <Button onClick={handleUpdateProduct}>Update Product</Button>
+            {message !== '' && <p>{message}</p>}
+            {loading ? (
+              <>
+                <CircularProgress />
+              </>
+            ) : (
+              <>
+                <Button variant="contained" onClick={handleUpdateProduct}>
+                  Update Product
+                </Button>
+              </>
+            )}
           </form>
         </Box>
       </div>
